@@ -1,0 +1,233 @@
+{
+  "site": {
+    "name": "LexEuropa Review",
+    "tagline": "Law · Policy · Future",
+    "heroEyebrow": "Featured Analysis · Digital Law",
+    "heroTitle": "The Brussels Effect, Recoded: How the AI Act Reshapes Global Governance",
+    "heroDek": "A close reading of Europe's first horizontal AI statute — and why its risk tiers may quietly become the world's default rulebook.",
+    "emailSub": "submissions@lexeuropareview.eu",
+    "emailEd": "editorial@lexeuropareview.eu",
+    "accent": "",
+    "navy": "",
+    "background": "",
+    "card": "",
+    "europa": "",
+    "logo": "",
+    "hero": ""
+  },
+  "wire": [
+    "AI Act enforcement guidance expected before year-end",
+    "Member states report first figures under new asylum procedure",
+    "CBAM definitive period: importers brace for compliance",
+    "DMA: regulators open fresh interoperability inquiry",
+    "Court of Justice clarifies data-transfer standard",
+    "Rule-of-law mechanism cited in new funding decision"
+  ],
+  "publications": [
+    {
+      "cat": "digital",
+      "type": "Article",
+      "title": "Interoperability or Lock-In? The DMA's First Enforcement Year",
+      "excerpt": "Gatekeeper obligations were meant to pry open closed ecosystems. An assessment of where compliance has — and hasn't — moved the market.",
+      "author": "A. Novak",
+      "words": "4,100 words",
+      "date": "2 Jun 2026",
+      "link": "",
+      "img": ""
+    },
+    {
+      "cat": "migration",
+      "type": "Report",
+      "title": "The Pact in Practice: First Returns Under the New Asylum Procedure",
+      "excerpt": "A field-level report on how member states are operating the accelerated border procedure in its opening months.",
+      "author": "M. Haddad",
+      "words": "2,000 words",
+      "date": "1 Jun 2026",
+      "link": "",
+      "img": ""
+    },
+    {
+      "cat": "environment",
+      "type": "Article",
+      "title": "Carbon Borders: Reading CBAM's Second Compliance Cycle",
+      "excerpt": "As definitive obligations approach, importers face a steeper administrative climb. What the data tells us about readiness.",
+      "author": "L. Bergström",
+      "words": "3,300 words",
+      "date": "28 May 2026",
+      "link": "",
+      "img": ""
+    },
+    {
+      "cat": "governance",
+      "type": "Policy Paper",
+      "title": "Rule of Law Conditionality — Three Years On",
+      "excerpt": "A set of concrete recommendations for sharpening the link between EU funds and judicial independence.",
+      "author": "P. Kowalski",
+      "words": "1,500 words",
+      "date": "24 May 2026",
+      "link": "",
+      "img": ""
+    },
+    {
+      "cat": "digital",
+      "type": "Book Review",
+      "title": "Reviewed: \"Data Sovereignty in the European Order\"",
+      "excerpt": "A thoughtful but uneven study of where European data ambition meets the limits of enforcement.",
+      "author": "S. Ferreira",
+      "words": "1,300 words",
+      "date": "20 May 2026",
+      "link": "",
+      "img": ""
+    },
+    {
+      "cat": "environment",
+      "type": "Policy Paper",
+      "title": "Restoring Nature: Implementing the Restoration Law Without Litigation Gridlock",
+      "excerpt": "Practical proposals to help member states meet 2030 targets while limiting legal exposure.",
+      "author": "Students' Review",
+      "words": "1,500 words",
+      "date": "16 May 2026",
+      "link": "",
+      "img": ""
+    },
+    {
+      "cat": "governance",
+      "type": "Opinion",
+      "title": "Opinion: Europe Needs a Single Voice on Enforcement — Not Twenty-Seven",
+      "excerpt": "Fragmented national enforcement is quietly undermining the EU's best legislation. A short argument for a coordinated approach.",
+      "author": "R. Adeyemi",
+      "words": "900 words",
+      "date": "14 May 2026",
+      "link": "",
+      "img": ""
+    }
+  ],
+  "whatis": [
+    {
+      "kicker": "Concept",
+      "term": "The Brussels Effect",
+      "since": "Coined 2012 · in force across many sectors",
+      "body": "The idea, named by scholar Anu Bradford, that the EU exports its rules to the rest of the world without firing a shot: because the European single market is so large, global companies often find it cheaper to apply EU standards everywhere than to maintain separate products for separate markets. Over time, those EU rules become the de-facto global baseline."
+    },
+    {
+      "kicker": "Digital Law",
+      "term": "The EU AI Act",
+      "since": "Agreed 2024 · phasing in",
+      "body": "The world's first comprehensive law on artificial intelligence. It sorts AI systems into risk tiers and places duties on both developers and deployers. Agreed in 2024, its rules are phasing in over several years."
+    },
+    {
+      "kicker": "Digital Law",
+      "term": "GDPR",
+      "since": "In force since May 2018",
+      "body": "The General Data Protection Regulation — the EU's landmark data-protection law. It gives individuals rights over their personal data and obliges organisations to justify and secure how they process it. It became the template privacy laws worldwide have borrowed from."
+    },
+    {
+      "kicker": "Digital Law",
+      "term": "The Digital Markets Act",
+      "since": "Applying since 2023–24",
+      "body": "A competition law aimed at the largest online platforms, designated as gatekeepers. It bans certain practices and requires others, with the goal of keeping digital markets open and contestable."
+    },
+    {
+      "kicker": "Environment",
+      "term": "CBAM",
+      "since": "Transitional from 2023 · definitive from 2026",
+      "body": "The Carbon Border Adjustment Mechanism — in effect a carbon tariff. It prices the emissions embedded in certain imports so goods made under weaker climate rules abroad don't undercut cleaner EU production."
+    },
+    {
+      "kicker": "Migration",
+      "term": "The Migration & Asylum Pact",
+      "since": "Adopted 2024 · applying from 2026",
+      "body": "A package of reforms overhauling how the EU handles asylum and migration, with faster procedures, common rules, and a solidarity mechanism so member states share responsibility."
+    },
+    {
+      "kicker": "Governance",
+      "term": "Rule-of-Law Conditionality",
+      "since": "In force since 2021",
+      "body": "A mechanism that lets the EU suspend or cut funding to a member state where rule-of-law breaches put the bloc's money at risk."
+    }
+  ],
+  "streams": {
+    "intro": "We publish rising and established voices side by side — each with editorial support tuned to where you are in your career.",
+    "studentsEyebrow": "For Students",
+    "studentsTitle": "Undergraduate & Master's Review",
+    "studentsDesc": "A dedicated, mentored space for undergraduate and master's students to publish serious work on European law. Every accepted piece is paired with an editor who guides it to publication.",
+    "studentsBullets": [
+      "Open to enrolled undergraduate and master's students across any discipline",
+      "Editorial mentoring and structured feedback before publication",
+      "A citable byline and a permanent home for your work",
+      "All five formats welcome — opinion, review, article, report or policy paper"
+    ],
+    "scholarsEyebrow": "For Established Voices",
+    "scholarsTitle": "Developed Scholars",
+    "scholarsDesc": "For PhD candidates, independent researchers, practitioners and professors. A rigorous, peer-reviewed channel for analysis that informs policy and practice.",
+    "scholarsBullets": [
+      "PhD researchers, post-docs and independent scholars",
+      "Practitioners, professors and policy professionals",
+      "Double-blind editorial review for longer formats",
+      "Priority consideration for our featured analysis slot"
+    ]
+  },
+  "submit": {
+    "intro": "We accept five formats. Choose the one that fits your argument, follow the word counts below, and reference in Harvard (author–date) style.",
+    "formats": [
+      {
+        "name": "Book Review",
+        "words": "1,000 – 1,500 words",
+        "desc": "A critical engagement with a recent book on European law, policy or institutions."
+      },
+      {
+        "name": "Article",
+        "words": "2,500 – 4,500 words",
+        "desc": "Original analysis or argument on a question of European law and its development."
+      },
+      {
+        "name": "Report",
+        "words": "≈ 2,000 words",
+        "desc": "An evidence-led account of how a rule, ruling or policy is working in practice."
+      },
+      {
+        "name": "Policy Suggestion Paper",
+        "words": "≈ 1,500 words",
+        "desc": "Concrete, actionable recommendations addressed to a defined decision-maker."
+      },
+      {
+        "name": "Short Opinion Article",
+        "words": "Up to 1,000 words",
+        "desc": "A sharp, timely take on a development in any of our fields — digital, migration, environment or governance."
+      }
+    ],
+    "steps": [
+      "Pick your track (Students or Developed Scholar) and your format.",
+      "Complete the form, including a short abstract of 150–200 words.",
+      "Email your manuscript as a .docx or PDF to our submissions desk.",
+      "An editor is assigned; you receive feedback and, if accepted, a publication date."
+    ],
+    "houseRule": "All submissions must use the Harvard (author–date) referencing system: in-text citations in the form (Author Year: page) and a complete alphabetical reference list at the end. Manuscripts not in Harvard style will be returned for correction before they enter review."
+  },
+  "newsletter": {
+    "eyebrow": "Stay Informed",
+    "heading": "Subscribe to Our Newsletter",
+    "text": "The week in European law and policy — new analysis, the developments worth watching, and headlines from the wire, delivered to your inbox. No noise, no spam."
+  },
+  "about": {
+    "quote": "An independent review of European law and policy — reading the rules that will define the continent's next decade.",
+    "pillars": [
+      {
+        "label": "Law",
+        "text": "Rigorous, accessible analysis of the EU's evolving legal architecture."
+      },
+      {
+        "label": "Policy",
+        "text": "Bridging scholarship and practice with actionable, well-sourced argument."
+      },
+      {
+        "label": "Future",
+        "text": "Tracking digital, migration and environmental rules as they take shape."
+      },
+      {
+        "label": "Open",
+        "text": "No paywalls, no submission fees — a platform for students and scholars alike."
+      }
+    ]
+  }
+}
