@@ -1,0 +1,108 @@
+media:
+  input: media
+  output: /media
+
+content:
+  - name: site
+    label: 1 · Site, branding & appearance
+    path: data/content.json
+    type: file
+    fields:
+      - name: site
+        label: Branding, hero & appearance
+        type: object
+        fields:
+          - { name: name, label: Site name (the word Europa auto-styles blue), type: string }
+          - { name: tagline, label: Tagline, type: string }
+          - { name: heroEyebrow, label: Hero small label, type: string }
+          - { name: heroTitle, label: Hero headline, type: text }
+          - { name: heroDek, label: Hero sub-text, type: text }
+          - { name: emailSub, label: Submissions email, type: string }
+          - { name: emailEd, label: Editorial email, type: string }
+          - { name: accent, label: "Accent colour hex e.g. #8c2f39 (blank = default)", type: string }
+          - { name: navy, label: "Brand navy hex (blank = default)", type: string }
+          - { name: background, label: "Page background hex (blank = default)", type: string }
+          - { name: card, label: "Card colour hex (blank = default)", type: string }
+          - { name: europa, label: "Europa colour hex (blank = default)", type: string }
+          - { name: logo, label: Logo image (blank = keep gold seal), type: image }
+          - { name: hero, label: Hero image (blank = keep gold medallion), type: image }
+      - name: wire
+        label: News wire headlines (top ticker)
+        type: string
+        list: true
+      - name: publications
+        label: Publications
+        type: object
+        list: true
+        fields:
+          - { name: title, label: Title, type: string }
+          - name: cat
+            label: Subject area
+            type: select
+            options: { values: [digital, migration, environment, governance] }
+          - name: type
+            label: Format
+            type: select
+            options: { values: [Article, Report, Book Review, Policy Paper, Opinion] }
+          - { name: author, label: Author, type: string }
+          - { name: words, label: Word count, type: string }
+          - { name: date, label: Date, type: string }
+          - { name: excerpt, label: Summary, type: text }
+          - { name: link, label: Full-text link (optional), type: string }
+          - { name: img, label: Cover photo (optional), type: image }
+      - name: whatis
+        label: What Is explainers
+        type: object
+        list: true
+        fields:
+          - { name: kicker, label: Kicker label (e.g. Digital Law), type: string }
+          - { name: term, label: Term / title, type: string }
+          - { name: body, label: Explanation, type: text }
+          - { name: since, label: Date tag (optional), type: string }
+      - name: streams
+        label: Student & Scholar sections
+        type: object
+        fields:
+          - { name: intro, label: Intro line, type: text }
+          - { name: studentsEyebrow, label: Students small label, type: string }
+          - { name: studentsTitle, label: Students title, type: string }
+          - { name: studentsDesc, label: Students description, type: text }
+          - { name: studentsBullets, label: Students bullet points, type: string, list: true }
+          - { name: scholarsEyebrow, label: Scholars small label, type: string }
+          - { name: scholarsTitle, label: Scholars title, type: string }
+          - { name: scholarsDesc, label: Scholars description, type: text }
+          - { name: scholarsBullets, label: Scholars bullet points, type: string, list: true }
+      - name: submit
+        label: Submit section (formats, steps, rule)
+        type: object
+        fields:
+          - { name: intro, label: Intro line, type: text }
+          - name: formats
+            label: Publication formats
+            type: object
+            list: true
+            fields:
+              - { name: name, label: Format name, type: string }
+              - { name: words, label: Word count, type: string }
+              - { name: desc, label: Description, type: text }
+          - { name: steps, label: How submission works steps, type: string, list: true }
+          - { name: houseRule, label: House style rule (Harvard), type: text }
+      - name: newsletter
+        label: Newsletter section text
+        type: object
+        fields:
+          - { name: eyebrow, label: Small label, type: string }
+          - { name: heading, label: Heading, type: string }
+          - { name: text, label: Description, type: text }
+      - name: about
+        label: About section
+        type: object
+        fields:
+          - { name: quote, label: Mission statement, type: text }
+          - name: pillars
+            label: The four pillars
+            type: object
+            list: true
+            fields:
+              - { name: label, label: Label, type: string }
+              - { name: text, label: Text, type: text }
