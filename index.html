@@ -1,0 +1,1764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>LexEuropa Review — Law · Policy · Future</title>
+<meta name="description" content="LexEuropa Review — an independent review of European law and policy. Digital law, migration, environment and governance." />
+
+<!-- ============================================================
+     FONTS (loaded from Google Fonts — needs internet to look right)
+     Fraunces  = display headlines (editorial serif)
+     Newsreader = body / reading text
+     Archivo   = labels, navigation, buttons (clean grotesque)
+============================================================ -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&display=swap" rel="stylesheet" />
+
+<style>
+/* ============================================================
+   1. DESIGN TOKENS  (change colours here once, applies everywhere)
+============================================================ */
+:root{
+  --ink:#16243d;          /* brand navy — stays constant in both modes (used for dark panels) */
+  --ink-soft:#33425c;
+  --ink-faint:#6a7488;
+  --paper:#eef1f5;        /* page background */
+  --paper-2:#e3e8f0;      /* deeper grey section background */
+  --card:#ffffff;         /* card surface */
+  --text:#16243d;         /* primary text (adapts in dark mode) */
+  --gold:#8c2f39;         /* refined burgundy accent */
+  --gold-deep:#6f242c;    /* darker burgundy (text / hover) */
+  --claret:#8c2f39;       /* live / alert accent */
+  --line:rgba(22,36,61,.14);
+  --line-soft:rgba(22,36,61,.08);
+  --header-bg:var(--header-bg);
+  --on-dark:#f3f6fa;      /* light text that sits on fixed navy fills */
+  --shadow:0 1px 2px rgba(22,36,61,.06),0 12px 34px -18px rgba(22,36,61,.28);
+  --maxw:1200px;
+}
+
+/* ---------- NIGHT MODE ---------- */
+[data-theme="dark"]{
+  --ink:#162338;          /* slightly deeper navy panels */
+  --ink-soft:#aab4c6;     /* soft text becomes light */
+  --ink-faint:#7e8aa0;
+  --paper:#0e1622;        /* dark page background */
+  --paper-2:#0b121d;
+  --card:#16202e;         /* dark card surface */
+  --text:#e7ebf2;         /* primary text becomes light */
+  --gold:#c46b76;         /* burgundy lightened for legibility on dark */
+  --gold-deep:#d9939b;
+  --line:rgba(255,255,255,.12);
+  --line-soft:rgba(255,255,255,.07);
+  --header-bg:rgba(14,22,34,.85);
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 14px 40px -18px rgba(0,0,0,.6);
+}
+html{transition:background-color .3s ease}
+body{transition:background-color .3s ease,color .3s ease}
+
+/* ============================================================
+   2. RESET & BASE
+============================================================ */
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  background:var(--paper);
+  color:var(--text);
+  font-family:"Newsreader",Georgia,serif;
+  font-size:18px;line-height:1.65;
+  font-optical-sizing:auto;
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+/* faint paper grain overlay */
+body::before{
+  content:"";position:fixed;inset:0;z-index:9999;pointer-events:none;opacity:.045;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit;cursor:pointer;border:none;background:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+h1,h2,h3,h4,.display{font-family:"Fraunces",Georgia,serif;font-weight:600;line-height:1.07;letter-spacing:-.012em}
+.eyebrow{
+  font-family:"Archivo",sans-serif;font-size:12px;font-weight:600;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--gold-deep);
+}
+.label{font-family:"Archivo",sans-serif;letter-spacing:.04em}
+
+/* ============================================================
+   3. TOP NEWS WIRE  (auto-headline ticker)
+============================================================ */
+.wire{
+  background:var(--ink);color:#eef1f5;
+  font-family:"Archivo",sans-serif;font-size:13px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.wire .wrap{display:flex;align-items:center;gap:18px;height:42px;overflow:hidden}
+.wire-tag{
+  display:inline-flex;align-items:center;gap:8px;flex:none;
+  font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:11px;color:#aeb8cc;
+}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--claret);
+  box-shadow:0 0 0 0 rgba(138,43,52,.7);animation:pulse 1.8s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(138,43,52,.6)}70%{box-shadow:0 0 0 7px rgba(138,43,52,0)}100%{box-shadow:0 0 0 0 rgba(138,43,52,0)}}
+.wire-feed{position:relative;flex:1;height:100%;overflow:hidden}
+.wire-item{
+  position:absolute;inset:0;display:flex;align-items:center;gap:10px;
+  opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s;color:#e8e3d6;
+}
+.wire-item.on{opacity:1;transform:none}
+.wire-item b{color:#fff;font-weight:600}
+.wire-source{color:#9aa6bd;font-size:11px;letter-spacing:.04em;text-transform:uppercase;flex:none}
+.wire-note{flex:none;color:#7e8aa3;font-size:11px;letter-spacing:.04em}
+
+/* ============================================================
+   4. HEADER / NAV
+============================================================ */
+.masthead{position:sticky;top:0;z-index:80;background:var(--header-bg);
+  backdrop-filter:saturate(150%) blur(10px);border-bottom:1px solid var(--line)}
+.masthead .wrap{display:flex;align-items:center;justify-content:space-between;gap:24px;height:84px}
+.brand{display:flex;align-items:center;gap:14px}
+.seal{width:48px;height:48px;flex:none;color:var(--text)}
+.brand-text{display:flex;flex-direction:column;justify-content:center;line-height:1}
+.brand-text .name{font-family:"Fraunces",serif;font-weight:600;font-size:26px;letter-spacing:-.01em;line-height:1.04}
+.name-eu{font-weight:700;color:var(--eu,#2f63ad)}
+[data-theme="dark"] .name-eu{color:var(--eu,#74a6e6)}
+footer .name-eu{color:var(--eu,#74a6e6)}
+.brand-text .tag{font-family:"Archivo",sans-serif;font-size:10.5px;letter-spacing:.34em;
+  text-transform:uppercase;color:var(--gold-deep);margin-top:3px;font-weight:600}
+nav.main{display:flex;align-items:center;gap:26px}
+nav.main a{font-family:"Archivo",sans-serif;font-size:14px;font-weight:500;color:var(--ink-soft);
+  position:relative;padding:4px 0;transition:color .2s}
+nav.main a::after{content:"";position:absolute;left:0;right:100%;bottom:-2px;height:2px;
+  background:var(--gold);transition:right .25s}
+nav.main a:hover{color:var(--text)}
+nav.main a:hover::after{right:0}
+.btn{display:inline-flex;align-items:center;gap:8px;font-family:"Archivo",sans-serif;
+  font-weight:600;font-size:14px;border-radius:2px;padding:11px 20px;transition:.2s;letter-spacing:.01em}
+.btn-gold{background:var(--ink);color:#f7f2e7;border:1px solid var(--ink)}
+.btn-gold:hover{background:var(--gold-deep);border-color:var(--gold-deep)}
+.btn-ghost{border:1px solid var(--line);color:var(--text)}
+.btn-ghost:hover{border-color:var(--text);background:var(--ink);color:var(--on-dark)}
+.menu-toggle{display:none;font-size:26px;color:var(--text)}
+.head-actions{display:flex;align-items:center;gap:14px}
+.theme-toggle{width:40px;height:40px;border-radius:50%;border:1px solid var(--line);
+  display:grid;place-items:center;font-size:17px;color:var(--text);transition:.25s;background:transparent}
+.theme-toggle:hover{border-color:var(--text);background:var(--ink);color:var(--on-dark)}
+.theme-toggle .ti-moon{display:none}
+.theme-toggle .ti-sun{display:none}
+[data-theme="light"] .theme-toggle .ti-moon,html:not([data-theme="dark"]) .theme-toggle .ti-moon{display:block}
+[data-theme="dark"] .theme-toggle .ti-sun{display:block}
+[data-theme="dark"] .theme-toggle .ti-moon{display:none}
+/* subject-areas bar */
+.topics-bar{background:var(--header-bg);backdrop-filter:saturate(150%) blur(10px);border-top:1px solid var(--line-soft)}
+.topics-bar .wrap{display:flex;align-items:center;gap:24px;height:46px;overflow-x:auto}
+.topics-label{font-family:"Archivo",sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold-deep);flex:none}
+.topics{display:flex;align-items:center;gap:26px}
+.topics a{font-family:"Archivo",sans-serif;font-size:13px;font-weight:500;color:var(--ink-soft);
+  white-space:nowrap;position:relative;padding:3px 0;transition:color .2s}
+.topics a::after{content:"";position:absolute;left:0;right:100%;bottom:-1px;height:2px;background:var(--gold);transition:right .25s}
+.topics a:hover{color:var(--text)}
+.topics a:hover::after{right:0}
+.mob-label{font-family:"Archivo",sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold-deep);padding:12px 0 4px}
+
+/* ============================================================
+   5. HERO / LEAD FEATURE
+============================================================ */
+.hero{border-bottom:1px solid var(--line);padding:64px 0 56px}
+.hero-grid{display:grid;grid-template-columns:1.55fr .9fr;gap:56px}
+.lead .eyebrow{margin-bottom:18px}
+.lead h1{font-size:clamp(40px,5.4vw,68px);margin-bottom:22px}
+.lead .dek{font-size:21px;color:var(--ink-soft);max-width:36ch;font-weight:300;line-height:1.5;margin-bottom:26px}
+.byline{display:flex;align-items:center;gap:14px;font-family:"Archivo",sans-serif;font-size:13px;color:var(--ink-faint)}
+.byline .who{color:var(--text);font-weight:600}
+.byline .dot{width:3px;height:3px;border-radius:50%;background:var(--ink-faint)}
+.side-feature{border-left:1px solid var(--line);padding-left:30px;display:flex;flex-direction:column;gap:26px}
+.sf-item{padding-bottom:26px;border-bottom:1px solid var(--line-soft)}
+.sf-item:last-child{border-bottom:none;padding-bottom:0}
+.cat-tag{font-family:"Archivo",sans-serif;font-size:11px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold-deep);display:inline-block;margin-bottom:9px}
+.sf-item h3{font-size:21px;line-height:1.18;margin-bottom:8px}
+.sf-item h3 a:hover{color:var(--gold-deep)}
+.sf-item .meta{font-family:"Archivo",sans-serif;font-size:12px;color:var(--ink-faint)}
+
+/* ---- IMAGE SLOTS ----
+   A .figure looks like a designed colour panel when empty, and when you
+   drop an <img> inside it the photo fills the slot automatically. */
+.figure{position:relative;width:100%;border-radius:5px;overflow:hidden;
+  background:linear-gradient(135deg,var(--ink) 0%,#26354f 55%,var(--gold-deep) 140%)}
+.figure::after{content:"";position:absolute;inset:0;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Cpath d='M0 20h40M20 0v40' stroke='%23ffffff' stroke-opacity='.05' stroke-width='1'/%3E%3C/svg%3E")}
+.figure>img{width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:1}
+.figure .ph{position:absolute;inset:0;z-index:2;display:grid;place-items:center;
+  font-family:"Archivo",sans-serif;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.figure>img~.ph{display:none}            /* hide the 'photo' label once a real image is added */
+.hero-figure{aspect-ratio:16/9;margin-bottom:28px}
+.hero-illus{position:absolute;inset:0;width:100%;height:100%;display:block;z-index:1}
+.card-figure{aspect-ratio:16/9;margin-bottom:18px}
+.card-watermark{position:absolute;bottom:9px;right:9px;width:34px;height:34px;z-index:3;opacity:0.55;
+  filter:drop-shadow(0 1px 3px rgba(0,0,0,.5))}
+.fig-b{background:linear-gradient(135deg,#1c2b46 0%,#39496a 55%,#5a6a8c 150%)}
+.fig-c{background:linear-gradient(135deg,#222a3f 0%,#3d4661 55%,var(--gold-deep) 150%)}
+
+/* staggered load */
+.reveal{opacity:0;transform:translateY(18px);animation:rise .8s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* ============================================================
+   6. SECTION SHELL
+============================================================ */
+section{padding:74px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:38px}
+.sec-head h2{font-size:clamp(28px,3.4vw,40px)}
+.sec-head .eyebrow{margin-bottom:12px}
+.sec-head p{color:var(--ink-soft);max-width:52ch;font-weight:300}
+.rule-top{border-top:1px solid var(--line)}
+
+/* ---- WHAT IS? explainer accordion ---- */
+.whatis-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 26px}
+.wi{border:1px solid var(--line);border-radius:5px;background:var(--card);overflow:hidden;
+  box-shadow:var(--shadow);transition:border-color .2s}
+.wi[open]{border-color:var(--gold)}
+.wi summary{list-style:none;cursor:pointer;padding:22px 24px;display:flex;align-items:flex-start;
+  justify-content:space-between;gap:16px}
+.wi summary::-webkit-details-marker{display:none}
+.wi .wi-head{display:flex;flex-direction:column;gap:5px}
+.wi .wi-kicker{font-family:"Archivo",sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--gold-deep)}
+.wi .wi-term{font-family:"Fraunces",serif;font-size:21px;font-weight:600;line-height:1.12;color:var(--text)}
+.wi .wi-plus{flex:none;width:26px;height:26px;border:1px solid var(--line);border-radius:50%;
+  display:grid;place-items:center;font-family:"Archivo",sans-serif;font-size:18px;color:var(--gold-deep);transition:.25s}
+.wi[open] .wi-plus{transform:rotate(45deg);background:var(--gold);color:#fff;border-color:var(--gold)}
+.wi .wi-body{padding:0 24px 24px;color:var(--ink-soft);font-size:16px;line-height:1.6;font-weight:300}
+.wi .wi-body .since{display:inline-block;font-family:"Archivo",sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:.06em;text-transform:uppercase;color:var(--gold-deep);
+  border:1px solid var(--line);border-radius:3px;padding:3px 9px;margin-top:14px}
+
+/* ============================================================
+   7. INSIGHT ENGINE (AI assistant)
+============================================================ */
+.insight{background:var(--ink);color:#e4e8f0;position:relative;overflow:hidden}
+.insight::after{content:"";position:absolute;right:-180px;top:-180px;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(174,184,204,.14),transparent 62%)}
+.insight .eyebrow{color:#aeb8cc}
+.insight h2{color:#fdfaf3}
+.insight .sec-head p{color:#c7cdd9}
+.engine{display:grid;grid-template-columns:1fr 1fr;gap:40px;position:relative;z-index:2}
+.engine-intro p{color:#c7cdd9;font-weight:300;margin-bottom:22px}
+.engine-feats{list-style:none;display:flex;flex-direction:column;gap:16px}
+.engine-feats li{display:flex;gap:13px;font-size:15.5px;color:#dde1ea;line-height:1.5}
+.engine-feats .ic{width:34px;height:34px;flex:none;border:1px solid rgba(174,184,204,.4);border-radius:50%;
+  display:grid;place-items:center;color:#aeb8cc;font-family:"Fraunces",serif;font-size:16px}
+.ask{background:rgba(255,255,255,.04);border:1px solid rgba(174,184,204,.2);border-radius:6px;padding:22px}
+.ask-title{font-family:"Archivo",sans-serif;font-size:12px;letter-spacing:.14em;text-transform:uppercase;
+  color:#aeb8cc;font-weight:700;display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.chip{font-family:"Archivo",sans-serif;font-size:12.5px;color:#dde1ea;border:1px solid rgba(174,184,204,.28);
+  border-radius:40px;padding:6px 13px;transition:.2s}
+.chip:hover{background:rgba(174,184,204,.14);border-color:#fff}
+.ask-row{display:flex;gap:8px}
+.ask-row input{flex:1;background:rgba(0,0,0,.22);border:1px solid rgba(174,184,204,.26);color:#fff;
+  font-family:"Archivo",sans-serif;font-size:14px;padding:12px 14px;border-radius:4px}
+.ask-row input::placeholder{color:#94a0b6}
+.ask-row input:focus{outline:none;border-color:#aeb8cc}
+.ask-send{background:var(--gold);color:#fff;font-weight:700;border-radius:4px;padding:0 18px;
+  font-family:"Archivo",sans-serif;font-size:14px;transition:.2s}
+.ask-send:hover{background:var(--gold-deep)}
+.answer{margin-top:16px;background:rgba(0,0,0,.18);border-left:2px solid var(--gold);border-radius:0 4px 4px 0;
+  padding:16px 18px;font-size:15px;line-height:1.6;color:#e7eaf0;min-height:0;display:none;font-weight:300}
+.answer.show{display:block;animation:rise .5s ease forwards}
+.answer .tagrow{font-family:"Archivo",sans-serif;font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:#aeb8cc;margin-bottom:8px;display:flex;justify-content:space-between}
+.thinking{display:inline-flex;gap:4px}
+.thinking i{width:6px;height:6px;background:#aeb8cc;border-radius:50%;animation:bounce 1s infinite}
+.thinking i:nth-child(2){animation-delay:.15s}.thinking i:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,80%,100%{opacity:.3;transform:translateY(0)}40%{opacity:1;transform:translateY(-4px)}}
+
+/* ============================================================
+   8. PUBLICATIONS GRID
+============================================================ */
+.filters{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:34px}
+.filter{font-family:"Archivo",sans-serif;font-size:13px;font-weight:600;color:var(--ink-soft);
+  border:1px solid var(--line);background:var(--card);padding:8px 16px;border-radius:40px;transition:.2s}
+.filter:hover{border-color:var(--text)}
+.filter.active{background:var(--ink);color:var(--on-dark);border-color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:5px;padding:26px;display:flex;
+  flex-direction:column;box-shadow:var(--shadow);transition:transform .3s,box-shadow .3s;position:relative}
+.card:hover{transform:translateY(-4px);box-shadow:0 1px 2px rgba(22,36,61,.06),0 24px 44px -22px rgba(22,36,61,.4)}
+.card .toprow{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.type-tag{font-family:"Archivo",sans-serif;font-size:10.5px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  border:1px solid var(--line);border-radius:3px;padding:4px 8px;color:var(--ink-soft)}
+.card h3{font-size:22px;line-height:1.15;margin-bottom:11px}
+.card h3 a:hover{color:var(--gold-deep)}
+.card .excerpt{font-size:15.5px;color:var(--ink-soft);font-weight:300;line-height:1.55;margin-bottom:20px;flex:1}
+.card .foot{display:flex;align-items:center;gap:10px;font-family:"Archivo",sans-serif;font-size:12px;color:var(--ink-faint);
+  border-top:1px solid var(--line-soft);padding-top:14px}
+.card .foot .who{color:var(--text);font-weight:600}
+
+/* ============================================================
+   9. TWO STREAMS
+============================================================ */
+.streams{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.stream{border:1px solid var(--line);border-radius:6px;padding:38px;background:var(--card);position:relative;overflow:hidden}
+.stream.scholars{background:var(--ink);color:#e4e8f0}
+.stream .eyebrow{margin-bottom:14px}
+.stream.scholars .eyebrow{color:#aeb8cc}
+.stream h3{font-size:30px;margin-bottom:14px}
+.stream.scholars h3{color:#fff}
+.stream p{font-weight:300;color:var(--ink-soft);margin-bottom:22px}
+.stream.scholars p{color:#c7cdd9}
+.stream ul{list-style:none;margin-bottom:26px;display:flex;flex-direction:column;gap:10px}
+.stream li{font-family:"Archivo",sans-serif;font-size:14px;display:flex;gap:11px;align-items:flex-start;color:var(--ink-soft)}
+.stream.scholars li{color:#cfd5e0}
+.stream li::before{content:"";width:7px;height:7px;flex:none;margin-top:7px;background:var(--gold);transform:rotate(45deg)}
+.stream .num{position:absolute;right:24px;top:10px;font-family:"Fraunces",serif;font-size:120px;font-weight:600;
+  color:var(--text);opacity:.05;line-height:1}
+.stream.scholars .num{color:#fff;opacity:.07}
+
+/* ============================================================
+   10. SUBMISSION TYPES + FORM
+============================================================ */
+.types{display:grid;grid-template-columns:repeat(auto-fit,minmax(185px,1fr));gap:18px;margin-bottom:50px}
+.type{border:1px solid var(--line);border-top:3px solid var(--gold);border-radius:0 0 5px 5px;
+  padding:24px 22px;background:var(--card)}
+.type h4{font-size:21px;margin-bottom:6px}
+.type .words{font-family:"Archivo",sans-serif;font-weight:700;font-size:13px;color:var(--gold-deep);letter-spacing:.04em;margin-bottom:12px}
+.type p{font-size:14.5px;color:var(--ink-soft);font-weight:300;line-height:1.5}
+.submit-grid{display:grid;grid-template-columns:.85fr 1.15fr;gap:48px;align-items:start}
+.submit-copy h3{font-size:30px;margin-bottom:16px}
+.submit-copy p{color:var(--ink-soft);font-weight:300;margin-bottom:18px}
+.steps{list-style:none;display:flex;flex-direction:column;gap:16px}
+.steps li{display:flex;gap:15px;font-family:"Archivo",sans-serif;font-size:14.5px;color:var(--ink-soft);align-items:flex-start}
+.house-rule{margin-top:24px;background:var(--paper-2);border-left:3px solid var(--gold);border-radius:0 4px 4px 0;
+  padding:15px 18px;font-size:15px;line-height:1.55;color:var(--ink-soft);font-weight:300}
+.house-rule strong{display:block;font-family:"Archivo",sans-serif;font-size:11.5px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--gold-deep);margin-bottom:6px}
+.steps .sn{flex:none;width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--on-dark);  display:grid;place-items:center;font-weight:700;font-size:13px}
+form.sub{background:var(--card);border:1px solid var(--line);border-radius:6px;padding:32px;box-shadow:var(--shadow)}
+.field{margin-bottom:18px}
+.field label{display:block;font-family:"Archivo",sans-serif;font-size:12px;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;color:var(--ink-soft);margin-bottom:7px}
+.field input,.field select,.field textarea{width:100%;font-family:"Archivo",sans-serif;font-size:14.5px;
+  padding:11px 13px;border:1px solid var(--line);border-radius:4px;background:var(--card);color:var(--text)}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(140,47,57,.14)}
+.field textarea{resize:vertical;min-height:96px;line-height:1.5}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.sub-msg{display:none;margin-top:16px;padding:14px 16px;border-radius:4px;background:rgba(140,47,57,.1);
+  border:1px solid var(--gold);font-family:"Archivo",sans-serif;font-size:13.5px;color:var(--gold-deep)}
+.sub-msg.show{display:block;animation:rise .4s ease}
+
+/* ============================================================
+   11. ABOUT + CONTACT
+============================================================ */
+.about{background:var(--paper-2)}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.about blockquote{font-family:"Fraunces",serif;font-size:clamp(24px,3vw,34px);line-height:1.28;font-weight:500}
+.about blockquote .hl{color:var(--gold-deep);font-style:italic}
+.pillars{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:8px}
+.pillar .eyebrow{display:block;margin-bottom:7px}
+.pillar p{font-size:15px;color:var(--ink-soft);font-weight:300}
+.contact-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;margin-top:8px}
+.cbox{border:1px solid var(--line);border-radius:5px;padding:26px;background:var(--card)}
+.cbox .eyebrow{margin-bottom:10px}
+.cbox a{font-family:"Archivo",sans-serif;font-size:15px;color:var(--text);border-bottom:1px solid var(--gold);padding-bottom:1px}
+.cbox a:hover{color:var(--gold-deep)}
+.cbox p{font-family:"Archivo",sans-serif;font-size:14px;color:var(--ink-soft)}
+
+/* ---- NEWSLETTER band ---- */
+.newsletter{background:var(--ink);color:#e7eaf0;position:relative;overflow:hidden}
+.newsletter::after{content:"";position:absolute;left:-160px;bottom:-200px;width:520px;height:520px;border-radius:50%;
+  background:radial-gradient(circle,rgba(196,107,118,.16),transparent 62%)}
+.nl-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center;position:relative;z-index:2}
+.nl-copy .eyebrow{color:#aeb8cc;margin-bottom:12px}
+.nl-copy h2{color:#fff;font-size:clamp(28px,3.4vw,40px);margin-bottom:14px}
+.nl-copy p{color:#c7cdd9;font-weight:300;max-width:46ch}
+.nl-row{display:flex;gap:10px}
+.nl-row input{flex:1;background:rgba(255,255,255,.06);border:1px solid rgba(174,184,204,.3);color:#fff;
+  font-family:"Archivo",sans-serif;font-size:15px;padding:14px 16px;border-radius:4px}
+.nl-row input::placeholder{color:#94a0b6}
+.nl-row input:focus{outline:none;border-color:#fff}
+.nl-row .btn{background:var(--gold);color:#fff;border:1px solid var(--gold);padding:14px 22px;white-space:nowrap}
+.nl-row .btn:hover{background:var(--gold-deep);border-color:var(--gold-deep)}
+.nl-fine{font-family:"Archivo",sans-serif;font-size:12px;color:#94a0b6;margin-top:12px}
+.nl-msg{display:none;margin-top:14px;font-family:"Archivo",sans-serif;font-size:13.5px;color:#fff;
+  background:rgba(196,107,118,.2);border:1px solid var(--gold);border-radius:4px;padding:12px 14px}
+.nl-msg.show{display:block;animation:rise .4s ease}
+
+/* ============================================================
+   12. FOOTER
+============================================================ */
+footer{background:var(--ink);color:#cdd2dd;padding:64px 0 30px}
+.foot-top{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;padding-bottom:40px;
+  border-bottom:1px solid rgba(255,255,255,.1)}
+.foot-brand .name{font-family:"Fraunces",serif;color:#fff;font-size:24px;font-weight:600}
+.foot-brand .tag{font-family:"Archivo",sans-serif;font-size:10px;letter-spacing:.32em;text-transform:uppercase;
+  color:#aeb8cc;margin:6px 0 16px;font-weight:600}
+.foot-brand p{font-size:15px;font-weight:300;color:#aab2c2;max-width:34ch}
+.fcol h5{font-family:"Archivo",sans-serif;font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  color:#fff;margin-bottom:16px;font-weight:700}
+.fcol a{display:block;font-family:"Archivo",sans-serif;font-size:14px;color:#aab2c2;margin-bottom:10px;transition:.2s}
+.fcol a:hover{color:#ffffff}
+.foot-bot{display:flex;justify-content:space-between;align-items:center;padding-top:24px;
+  font-family:"Archivo",sans-serif;font-size:12.5px;color:#8a93a6;flex-wrap:wrap;gap:12px}
+
+.pub-empty{text-align:center;color:var(--ink-faint);font-style:italic;padding:30px 0}
+#editorLink{display:none!important} /* edits now happen in Pages CMS, not in-page */
+
+/* ---- EDITOR PANEL ---- */
+.admin-overlay{position:fixed;inset:0;z-index:200;background:rgba(8,14,24,.55);backdrop-filter:blur(3px);
+  display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto}
+.admin-overlay.open{display:flex}
+.admin-panel{background:var(--card);border:1px solid var(--line);border-radius:8px;width:100%;max-width:680px;
+  box-shadow:0 30px 80px -20px rgba(0,0,0,.5);overflow:hidden}
+.admin-head{display:flex;align-items:center;justify-content:space-between;padding:18px 22px;background:var(--ink);color:#fff}
+.admin-title{font-family:"Fraunces",serif;font-size:20px;font-weight:600;display:block}
+.admin-sub{font-family:"Archivo",sans-serif;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#aab8cc}
+.admin-x{color:#fff;font-size:18px;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.25)}
+.admin-x:hover{background:rgba(255,255,255,.12)}
+.admin-tabs{display:flex;gap:4px;padding:12px 16px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+.atab{font-family:"Archivo",sans-serif;font-size:13px;font-weight:600;color:var(--ink-soft);padding:9px 14px;border-radius:5px 5px 0 0}
+.atab.active{background:var(--ink);color:#fff}
+.admin-body{padding:22px;max-height:66vh;overflow-y:auto}
+.apane{display:none}.apane.active{display:block}
+.apane h4{font-family:"Fraunces",serif;font-size:18px;margin-bottom:14px}
+.afield{margin-bottom:13px}
+.afield label{display:block;font-family:"Archivo",sans-serif;font-size:11px;font-weight:600;letter-spacing:.05em;
+  text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+.afield input,.afield select,.afield textarea{width:100%;font-family:"Archivo",sans-serif;font-size:14px;
+  padding:10px 12px;border:1px solid var(--line);border-radius:4px;background:var(--card);color:var(--text)}
+.afield textarea{min-height:70px;resize:vertical}
+.afield input:focus,.afield select:focus,.afield textarea:focus{outline:none;border-color:var(--gold)}
+.atwo{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.arow{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.btn-sm{padding:7px 14px;font-size:12.5px}
+.amini{font-family:"Archivo",sans-serif;font-size:12.5px;color:var(--ink-faint);line-height:1.5;margin-bottom:14px}
+.amini-box{width:100%;min-height:90px;margin-top:12px;font-family:monospace;font-size:11px;padding:10px;
+  border:1px solid var(--line);border-radius:4px;background:var(--paper-2);color:var(--ink-soft)}
+.alist{display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.arec{border:1px solid var(--line);border-radius:5px;padding:12px 14px;background:var(--paper-2)}
+.arec .at{font-family:"Fraunces",serif;font-weight:600;font-size:15px;margin-bottom:3px}
+.arec .am{font-family:"Archivo",sans-serif;font-size:12px;color:var(--ink-faint);line-height:1.5}
+.arec .aacts{display:flex;gap:8px;margin-top:9px}
+.arec button{font-family:"Archivo",sans-serif;font-size:12px;font-weight:600;padding:5px 11px;border-radius:4px;border:1px solid var(--line);color:var(--ink-soft)}
+.arec button:hover{border-color:var(--text);color:var(--text)}
+.arec button.del:hover{border-color:var(--gold);color:var(--gold-deep)}
+
+/* ============================================================
+   13. RESPONSIVE
+============================================================ */
+@media(max-width:980px){
+  .hero-grid,.engine,.streams,.submit-grid,.about-grid,.whatis-grid,.nl-grid{grid-template-columns:1fr;gap:40px}
+  .side-feature{border-left:none;border-top:1px solid var(--line);padding-left:0;padding-top:30px}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .types{grid-template-columns:repeat(2,1fr)}
+  .contact-grid{grid-template-columns:1fr}
+  .foot-top{grid-template-columns:1fr 1fr}
+}
+@media(max-width:680px){
+  body{font-size:17px}
+  nav.main,.masthead .btn,.topics-bar{display:none}
+  .menu-toggle{display:block}
+  .mobile-nav{display:none;flex-direction:column;gap:4px;padding:12px 28px 22px;border-bottom:1px solid var(--line);background:var(--paper)}
+  .mobile-nav.open{display:flex}
+  .mobile-nav a{font-family:"Archivo",sans-serif;font-size:15px;padding:10px 0;border-bottom:1px solid var(--line-soft);color:var(--ink-soft)}
+  .grid,.types,.two,.pillars{grid-template-columns:1fr}
+  .wire-source,.wire-note{display:none}
+  .sec-head{flex-direction:column;align-items:flex-start}
+  .foot-top{grid-template-columns:1fr}
+}
+.mobile-nav{display:none}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="goldgSeal" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#e7c66a"/><stop offset="0.5" stop-color="#c2982f"/><stop offset="1" stop-color="#9a7322"/>
+    </linearGradient>
+    <symbol id="leSeal" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="48" fill="none" stroke="url(#goldgSeal)" stroke-width="3"/>
+      <circle cx="50" cy="50" r="40.5" fill="none" stroke="url(#goldgSeal)" stroke-width="1.2"/>
+      <g fill="url(#goldgSeal)"><path d="M50.00,2.80L50.85,4.84L53.04,5.01L51.37,6.44L51.88,8.59L50.00,7.44L48.12,8.59L48.63,6.44L46.96,5.01L49.15,4.84Z"/><path d="M72.00,8.69L72.85,10.73L75.04,10.91L73.37,12.34L73.88,14.48L72.00,13.33L70.12,14.48L70.63,12.34L68.96,10.91L71.15,10.73Z"/><path d="M88.11,24.80L88.95,26.84L91.15,27.01L89.47,28.44L89.99,30.59L88.11,29.44L86.22,30.59L86.74,28.44L85.06,27.01L87.26,26.84Z"/><path d="M94.00,46.80L94.85,48.84L97.04,49.01L95.37,50.44L95.88,52.59L94.00,51.44L92.12,52.59L92.63,50.44L90.96,49.01L93.15,48.84Z"/><path d="M88.11,68.80L88.95,70.84L91.15,71.01L89.47,72.44L89.99,74.59L88.11,73.44L86.22,74.59L86.74,72.44L85.06,71.01L87.26,70.84Z"/><path d="M72.00,84.91L72.85,86.94L75.04,87.12L73.37,88.55L73.88,90.69L72.00,89.55L70.12,90.69L70.63,88.55L68.96,87.12L71.15,86.94Z"/><path d="M50.00,90.80L50.85,92.84L53.04,93.01L51.37,94.44L51.88,96.59L50.00,95.44L48.12,96.59L48.63,94.44L46.96,93.01L49.15,92.84Z"/><path d="M28.00,84.91L28.85,86.94L31.04,87.12L29.37,88.55L29.88,90.69L28.00,89.55L26.12,90.69L26.63,88.55L24.96,87.12L27.15,86.94Z"/><path d="M11.89,68.80L12.74,70.84L14.94,71.01L13.26,72.44L13.78,74.59L11.89,73.44L10.01,74.59L10.53,72.44L8.85,71.01L11.05,70.84Z"/><path d="M6.00,46.80L6.85,48.84L9.04,49.01L7.37,50.44L7.88,52.59L6.00,51.44L4.12,52.59L4.63,50.44L2.96,49.01L5.15,48.84Z"/><path d="M11.89,24.80L12.74,26.84L14.94,27.01L13.26,28.44L13.78,30.59L11.89,29.44L10.01,30.59L10.53,28.44L8.85,27.01L11.05,26.84Z"/><path d="M28.00,8.69L28.85,10.73L31.04,10.91L29.37,12.34L29.88,14.48L28.00,13.33L26.12,14.48L26.63,12.34L24.96,10.91L27.15,10.73Z"/></g>
+      <g fill="url(#goldgSeal)">
+        <polygon points="36.5,34 63.5,34 50,27.5"/>
+        <rect x="37" y="33" width="26" height="2.2"/>
+        <rect x="38.5" y="35.2" width="23" height="1.3"/>
+        <rect x="40" y="36.7" width="1.9" height="8.3"/><rect x="44.5" y="36.7" width="1.9" height="8.3"/><rect x="49" y="36.7" width="1.9" height="8.3"/><rect x="53.5" y="36.7" width="1.9" height="8.3"/><rect x="58" y="36.7" width="1.9" height="8.3"/>
+        <rect x="38.5" y="45" width="23" height="1.8"/>
+        <rect x="36.5" y="46.8" width="27" height="2"/>
+      </g>
+      <text x="50" y="70" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="26" font-weight="600" fill="#f4eee1" letter-spacing="-1.5">LE</text>
+    </symbol>
+
+    <radialGradient id="mface" cx="0.42" cy="0.34" r="0.72"><stop offset="0" stop-color="#243a60"/><stop offset="0.6" stop-color="#142339"/><stop offset="1" stop-color="#0c1525"/></radialGradient>
+    <linearGradient id="mrim" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0" stop-color="#f6e4a0"/><stop offset="0.42" stop-color="#cda23a"/><stop offset="0.8" stop-color="#9c7423"/><stop offset="1" stop-color="#7c5c19"/></linearGradient>
+    <radialGradient id="mgold" cx="0.42" cy="0.3" r="0.8"><stop offset="0" stop-color="#f6e6ad"/><stop offset="0.6" stop-color="#cda23a"/><stop offset="1" stop-color="#a37c25"/></radialGradient>
+    <radialGradient id="msheen" cx="0.4" cy="0.28" r="0.55"><stop offset="0" stop-color="#ffffff" stop-opacity="0.5"/><stop offset="0.6" stop-color="#ffffff" stop-opacity="0.05"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+    <clipPath id="mclip"><circle cx="300" cy="300" r="290"/></clipPath>
+    <filter id="mshadow" x="-30%" y="-30%" width="160%" height="160%"><feDropShadow dx="3" dy="8" stdDeviation="10" flood-color="#000000" flood-opacity="0.45"/></filter>
+    <filter id="memboss" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2" stdDeviation="1" flood-color="#4a350f" flood-opacity="0.7"/></filter>
+    <symbol id="leMedal" viewBox="0 0 600 600">
+      <g filter="url(#mshadow)">
+        <circle cx="300" cy="300" r="290" fill="url(#mrim)"/>
+        <circle cx="300" cy="300" r="290" fill="none" stroke="#6b4f18" stroke-width="2"/>
+        <circle cx="300" cy="300" r="283" fill="none" stroke="#f9ecbb" stroke-width="2" opacity="0.55"/>
+        <circle cx="300" cy="300" r="263" fill="url(#mface)"/>
+        <circle cx="300" cy="300" r="263" fill="none" stroke="#000000" stroke-opacity="0.35" stroke-width="6"/>
+        <circle cx="300" cy="300" r="253" fill="none" stroke="url(#mgold)" stroke-width="2.5"/>
+      </g>
+      <g filter="url(#memboss)" fill="url(#mgold)">
+        <path d="M300.00,57.00L303.97,66.54L314.27,67.36L306.42,74.09L308.82,84.14L300.00,78.75L291.18,84.14L293.58,74.09L285.73,67.36L296.03,66.54Z"/><path d="M414.00,87.55L417.97,97.09L428.27,97.91L420.42,104.63L422.82,114.68L414.00,109.30L405.18,114.68L407.58,104.63L399.73,97.91L410.03,97.09Z"/><path d="M497.45,171.00L501.42,180.54L511.72,181.36L503.87,188.09L506.27,198.14L497.45,192.75L488.64,198.14L491.03,188.09L483.19,181.36L493.49,180.54Z"/><path d="M528.00,285.00L531.97,294.54L542.27,295.36L534.42,302.09L536.82,312.14L528.00,306.75L519.18,312.14L521.58,302.09L513.73,295.36L524.03,294.54Z"/><path d="M497.45,399.00L501.42,408.54L511.72,409.36L503.87,416.09L506.27,426.14L497.45,420.75L488.64,426.14L491.03,416.09L483.19,409.36L493.49,408.54Z"/><path d="M414.00,482.45L417.97,491.99L428.27,492.82L420.42,499.54L422.82,509.59L414.00,504.20L405.18,509.59L407.58,499.54L399.73,492.82L410.03,491.99Z"/><path d="M300.00,513.00L303.97,522.54L314.27,523.36L306.42,530.09L308.82,540.14L300.00,534.75L291.18,540.14L293.58,530.09L285.73,523.36L296.03,522.54Z"/><path d="M186.00,482.45L189.97,491.99L200.27,492.82L192.42,499.54L194.82,509.59L186.00,504.20L177.18,509.59L179.58,499.54L171.73,492.82L182.03,491.99Z"/><path d="M102.55,399.00L106.51,408.54L116.81,409.36L108.97,416.09L111.36,426.14L102.55,420.75L93.73,426.14L96.13,416.09L88.28,409.36L98.58,408.54Z"/><path d="M72.00,285.00L75.97,294.54L86.27,295.36L78.42,302.09L80.82,312.14L72.00,306.75L63.18,312.14L65.58,302.09L57.73,295.36L68.03,294.54Z"/><path d="M102.55,171.00L106.51,180.54L116.81,181.36L108.97,188.09L111.36,198.14L102.55,192.75L93.73,198.14L96.13,188.09L88.28,181.36L98.58,180.54Z"/><path d="M186.00,87.55L189.97,97.09L200.27,97.91L192.42,104.63L194.82,114.68L186.00,109.30L177.18,114.68L179.58,104.63L171.73,97.91L182.03,97.09Z"/>
+        <polygon points="210,175 390,175 300,120"/>
+        <rect x="213" y="172" width="174" height="13"/>
+        <rect x="222" y="185" width="156" height="7"/>
+        <rect x="232" y="193" width="12" height="70"/><rect x="259" y="193" width="12" height="70"/><rect x="286" y="193" width="12" height="70"/><rect x="313" y="193" width="12" height="70"/><rect x="340" y="193" width="12" height="70"/><rect x="368" y="193" width="12" height="70"/>
+        <rect x="222" y="263" width="156" height="10"/>
+        <rect x="210" y="273" width="180" height="12"/>
+      </g>
+      <text x="300" y="400" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="120" font-weight="600" fill="url(#mgold)" letter-spacing="-5" filter="url(#memboss)">LE</text>
+      <g clip-path="url(#mclip)"><ellipse cx="250" cy="180" rx="250" ry="190" fill="url(#msheen)"/></g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============================================================
+     NEWS WIRE  —  automated European law & policy headlines
+     HOW IT WORKS: in this demo the headlines rotate from a list
+     below (see WIRE_HEADLINES in the script). To make it pull
+     LIVE news, replace that list with a feed from a news API or
+     an RSS reader on your server.
+============================================================ -->
+<div class="wire">
+  <div class="wrap">
+    <span class="wire-tag"><span class="live-dot"></span>EU Law &amp; Policy Wire</span>
+    <div class="wire-feed" id="wireFeed"></div>
+    <span class="wire-note">auto-curated · updated hourly</span>
+  </div>
+</div>
+
+<!-- ============================================================ MASTHEAD ============================================================ -->
+<header class="masthead">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <!-- Seal: ring of 12 stars (a quiet nod to Europe) + LE monogram -->
+      <svg class="seal" id="seal" viewBox="0 0 600 600" aria-hidden="true"><use href="#leMedal" width="600" height="600"/></svg>
+      <img id="logoImg" class="seal" alt="logo" style="display:none;object-fit:contain">
+      <div class="brand-text">
+        <div class="name" id="siteName">Lex<span class="name-eu">Europa</span> Review</div>
+        <div class="tag" id="siteTag">Law · Policy · Future</div>
+      </div>
+    </a>
+
+    <nav class="main">
+      <a href="#insight">Insight Engine</a>
+      <a href="#whatis">What Is?</a>
+      <a href="#publications">Publications</a>
+      <a href="#streams">Students</a>
+      <a href="#streams">Scholars</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <div class="head-actions">
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle night mode" title="Toggle night mode">
+        <span class="ti-sun">☀</span><span class="ti-moon">☾</span>
+      </button>
+      <a href="#submit" class="btn btn-gold">Submit Your Work →</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Menu">☰</button>
+    </div>
+  </div>
+
+  <!-- SUBJECT AREAS — clicking one jumps to Publications and filters by that field -->
+  <div class="topics-bar">
+    <div class="wrap">
+      <span class="topics-label">Subject Areas</span>
+      <nav class="topics">
+        <a href="#publications" data-topic="digital">Digital Law</a>
+        <a href="#publications" data-topic="migration">Migration</a>
+        <a href="#publications" data-topic="environment">Environment</a>
+        <a href="#publications" data-topic="governance">Governance</a>
+      </nav>
+    </div>
+  </div>
+
+  <!-- mobile menu -->
+  <div class="mobile-nav" id="mobileNav">
+    <a href="#insight">Insight Engine</a>
+    <a href="#whatis">What Is?</a>
+    <a href="#publications">Publications</a>
+    <span class="mob-label">Subject Areas</span>
+    <a href="#publications" data-topic="digital">Digital Law</a>
+    <a href="#publications" data-topic="migration">Migration</a>
+    <a href="#publications" data-topic="environment">Environment</a>
+    <a href="#publications" data-topic="governance">Governance</a>
+    <a href="#streams">Students &amp; Scholars</a>
+    <a href="#submit">Submit Your Work</a>
+    <a href="#newsletter">Newsletter</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+</header>
+
+<!-- ============================================================ HERO ============================================================ -->
+<section class="hero" id="top" style="padding-top:64px">
+  <div class="wrap hero-grid">
+    <!-- EDIT: this is your lead / featured piece -->
+    <div class="lead reveal" style="animation-delay:.05s">
+      <!-- HERO IMAGE: to add your own picture, put an <img> inside the .figure below, e.g.
+           <div class="figure hero-figure"><img src="my-photo.jpg" alt="describe the photo"></div>
+           The image file can sit in the same folder as this page, or use a web link as the src. -->
+      <!-- FEATURED IMAGE: this is a custom, royalty-free illustration (yours to use).
+           To use your own photo instead, replace this whole <div class="figure hero-figure">…</div>
+           with:  <div class="figure hero-figure"><img src="my-photo.jpg" alt="describe it"></div> -->
+      <div class="figure hero-figure">
+        <img id="heroImg" alt="featured" style="display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2">
+        <svg class="hero-illus" id="heroSeal" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="LexEuropa Review golden seal — a classical temple above the LE monogram within a ring of European stars">
+          <defs>
+            <radialGradient id="hbg" cx="0.5" cy="0.40" r="0.8"><stop offset="0" stop-color="#23375c"/><stop offset="0.55" stop-color="#15233c"/><stop offset="1" stop-color="#0a1120"/></radialGradient>
+            <radialGradient id="hface" cx="0.42" cy="0.34" r="0.72"><stop offset="0" stop-color="#243a60"/><stop offset="0.6" stop-color="#142339"/><stop offset="1" stop-color="#0c1525"/></radialGradient>
+            <linearGradient id="hrim" x1="0" y1="0" x2="0.3" y2="1"><stop offset="0" stop-color="#f6e4a0"/><stop offset="0.42" stop-color="#cda23a"/><stop offset="0.8" stop-color="#9c7423"/><stop offset="1" stop-color="#7c5c19"/></linearGradient>
+            <radialGradient id="hgold" cx="0.42" cy="0.3" r="0.8"><stop offset="0" stop-color="#f6e6ad"/><stop offset="0.6" stop-color="#cda23a"/><stop offset="1" stop-color="#a37c25"/></radialGradient>
+            <radialGradient id="hsheen" cx="0.4" cy="0.28" r="0.55"><stop offset="0" stop-color="#ffffff" stop-opacity="0.5"/><stop offset="0.6" stop-color="#ffffff" stop-opacity="0.05"/><stop offset="1" stop-color="#ffffff" stop-opacity="0"/></radialGradient>
+            <radialGradient id="hglow" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#d9b25e" stop-opacity="0.3"/><stop offset="0.7" stop-color="#d9b25e" stop-opacity="0.03"/><stop offset="1" stop-color="#d9b25e" stop-opacity="0"/></radialGradient>
+            <clipPath id="hclip"><circle cx="800" cy="400" r="300"/></clipPath>
+            <filter id="hshadow" x="-40%" y="-40%" width="180%" height="180%"><feDropShadow dx="8" dy="20" stdDeviation="24" flood-color="#000000" flood-opacity="0.5"/></filter>
+            <filter id="hemboss" x="-20%" y="-20%" width="140%" height="140%"><feDropShadow dx="0" dy="2.5" stdDeviation="1.2" flood-color="#4a350f" flood-opacity="0.7"/></filter>
+          </defs>
+
+          <rect width="1600" height="900" fill="url(#hbg)"/>
+          <g fill="#ffffff" opacity="0.16">
+            <circle cx="210" cy="150" r="2"/><circle cx="360" cy="560" r="1.6"/><circle cx="1320" cy="210" r="2.2"/>
+            <circle cx="1200" cy="600" r="1.6"/><circle cx="1440" cy="440" r="2"/><circle cx="150" cy="430" r="1.6"/>
+          </g>
+          <circle cx="800" cy="400" r="330" fill="url(#hglow)"/>
+
+          <!-- medallion -->
+          <g filter="url(#hshadow)">
+            <circle cx="800" cy="400" r="300" fill="url(#hrim)"/>
+            <circle cx="800" cy="400" r="300" fill="none" stroke="#6b4f18" stroke-width="2"/>
+            <circle cx="800" cy="400" r="293" fill="none" stroke="#f9ecbb" stroke-width="2" opacity="0.55"/>
+            <circle cx="800" cy="400" r="272" fill="url(#hface)"/>
+            <circle cx="800" cy="400" r="272" fill="none" stroke="#000000" stroke-opacity="0.35" stroke-width="6"/>
+            <circle cx="800" cy="400" r="262" fill="none" stroke="url(#hgold)" stroke-width="2.5"/>
+          </g>
+
+          <!-- engraved gold motif on the navy field -->
+          <g filter="url(#hemboss)" fill="url(#hgold)">
+            <path d="M800.00,149.00L804.23,159.18L815.22,160.06L806.85,167.22L809.40,177.94L800.00,172.20L790.60,177.94L793.15,167.22L784.78,160.06L795.77,159.18Z"/><path d="M917.50,180.48L921.73,190.66L932.72,191.54L924.35,198.71L926.90,209.43L917.50,203.68L908.10,209.43L910.65,198.71L902.28,191.54L913.27,190.66Z"/><path d="M1003.52,266.50L1007.75,276.68L1018.73,277.56L1010.36,284.72L1012.92,295.44L1003.52,289.70L994.11,295.44L996.67,284.72L988.30,277.56L999.28,276.68Z"/><path d="M1035.00,384.00L1039.23,394.18L1050.22,395.06L1041.85,402.22L1044.40,412.94L1035.00,407.20L1025.60,412.94L1028.15,402.22L1019.78,395.06L1030.77,394.18Z"/><path d="M1003.52,501.50L1007.75,511.68L1018.73,512.56L1010.36,519.72L1012.92,530.44L1003.52,524.70L994.11,530.44L996.67,519.72L988.30,512.56L999.28,511.68Z"/><path d="M917.50,587.52L921.73,597.69L932.72,598.57L924.35,605.74L926.90,616.46L917.50,610.72L908.10,616.46L910.65,605.74L902.28,598.57L913.27,597.69Z"/><path d="M800.00,619.00L804.23,629.18L815.22,630.06L806.85,637.22L809.40,647.94L800.00,642.20L790.60,647.94L793.15,637.22L784.78,630.06L795.77,629.18Z"/><path d="M682.50,587.52L686.73,597.69L697.72,598.57L689.35,605.74L691.90,616.46L682.50,610.72L673.10,616.46L675.65,605.74L667.28,598.57L678.27,597.69Z"/><path d="M596.48,501.50L600.72,511.68L611.70,512.56L603.33,519.72L605.89,530.44L596.48,524.70L587.08,530.44L589.64,519.72L581.27,512.56L592.25,511.68Z"/><path d="M565.00,384.00L569.23,394.18L580.22,395.06L571.85,402.22L574.40,412.94L565.00,407.20L555.60,412.94L558.15,402.22L549.78,395.06L560.77,394.18Z"/><path d="M596.48,266.50L600.72,276.68L611.70,277.56L603.33,284.72L605.89,295.44L596.48,289.70L587.08,295.44L589.64,284.72L581.27,277.56L592.25,276.68Z"/><path d="M682.50,180.48L686.73,190.66L697.72,191.54L689.35,198.71L691.90,209.43L682.50,203.68L673.10,209.43L675.65,198.71L667.28,191.54L678.27,190.66Z"/>
+            <polygon points="690,265 910,265 800,205"/>
+            <rect x="695" y="262" width="210" height="16"/>
+            <rect x="705" y="278" width="190" height="8"/>
+            <rect x="715" y="288" width="14" height="84"/><rect x="749" y="288" width="14" height="84"/><rect x="783" y="288" width="14" height="84"/><rect x="817" y="288" width="14" height="84"/><rect x="851" y="288" width="14" height="84"/><rect x="885" y="288" width="14" height="84"/>
+            <rect x="705" y="372" width="190" height="12"/>
+            <rect x="690" y="384" width="220" height="14"/>
+          </g>
+          <text x="800" y="520" text-anchor="middle" font-family="Fraunces, Georgia, serif" font-size="150" font-weight="600" fill="url(#hgold)" letter-spacing="-6" filter="url(#hemboss)">LE</text>
+
+          <!-- glossy sheen over the coin -->
+          <g clip-path="url(#hclip)"><ellipse cx="690" cy="250" rx="320" ry="240" fill="url(#hsheen)"/></g>
+
+          <!-- nameplate -->
+          <g text-anchor="middle" font-family="Archivo, sans-serif">
+            <line x1="600" y1="772" x2="1000" y2="772" stroke="#cda23a" stroke-width="1" opacity="0.55"/>
+            <text x="800" y="814" font-size="40" font-weight="700" letter-spacing="6" fill="#f4eede">LEXEUROPA REVIEW</text>
+            <text x="800" y="848" font-size="18" font-weight="600" letter-spacing="9" fill="#cda23a">LAW &#183; POLICY &#183; FUTURE</text>
+          </g>
+        </svg>
+      </div>
+      <p class="eyebrow" id="heroEyebrow">Featured Analysis · Digital Law</p>
+      <h1 id="heroTitle">The Brussels Effect, Recoded: How the AI Act Reshapes Global Governance</h1>
+      <p class="dek" id="heroDek">A close reading of Europe's first horizontal AI statute — and why its risk tiers may quietly become the world's default rulebook.</p>
+      <div class="byline">
+        <span class="who">Dr. Elena Marchetti</span>
+        <span class="dot"></span><span>Developed Scholars</span>
+        <span class="dot"></span><span>3 June 2026</span>
+        <span class="dot"></span><span>14 min read</span>
+      </div>
+    </div>
+
+    <!-- EDIT: 3 secondary featured items -->
+    <aside class="side-feature reveal" style="animation-delay:.18s">
+      <div class="sf-item">
+        <span class="cat-tag">Migration</span>
+        <h3><a href="#publications">The Pact in Practice: First Returns Under the New Asylum Procedure</a></h3>
+        <p class="meta">Report · 2,000 words · 1 June 2026</p>
+      </div>
+      <div class="sf-item">
+        <span class="cat-tag">Environment</span>
+        <h3><a href="#publications">Carbon Borders: Reading CBAM's Second Compliance Cycle</a></h3>
+        <p class="meta">Article · 28 May 2026</p>
+      </div>
+      <div class="sf-item">
+        <span class="cat-tag">Governance</span>
+        <h3><a href="#publications">Rule of Law Conditionality — Three Years On</a></h3>
+        <p class="meta">Policy Paper · 1,500 words · 24 May 2026</p>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============================================================ INSIGHT ENGINE (AI) ============================================================ -->
+<section class="insight" id="insight">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Powered by the Review's Archive</p>
+        <h2>The Insight Engine</h2>
+        <p>Ask a question and receive an AI-assisted synthesis drawn from analysis published across LexEuropa Review — connecting arguments across digital law, migration and the environment.</p>
+      </div>
+    </div>
+
+    <div class="engine">
+      <div class="engine-intro">
+        <p>The Insight Engine reads across our published library so you don't have to. Pose a question in plain language; it returns a concise, sourced briefing that points you to the relevant pieces.</p>
+        <ul class="engine-feats">
+          <li><span class="ic">∑</span><span><b>Cross-article synthesis.</b> Pulls threads from multiple published works into one answer.</span></li>
+          <li><span class="ic">⤳</span><span><b>Always cited.</b> Every insight points back to the articles, reports and papers it draws on.</span></li>
+          <li><span class="ic">⏱</span><span><b>Reader-first.</b> Built for students and practitioners who need the gist, fast.</span></li>
+        </ul>
+      </div>
+
+      <div class="ask">
+        <div class="ask-title">◆ Ask the Review</div>
+        <div class="chips" id="chips">
+          <button class="chip">What does the AI Act mean for non-EU firms?</button>
+          <button class="chip">Summarise the new asylum procedure</button>
+          <button class="chip">How does CBAM affect importers?</button>
+        </div>
+        <div class="ask-row">
+          <input id="askInput" type="text" placeholder="Ask about European law &amp; policy…" />
+          <button class="ask-send" id="askSend">Ask</button>
+        </div>
+        <div class="answer" id="answer"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ WHAT IS? (explainer) ============================================================ -->
+<!-- EDIT: add / remove entries below. Each entry is one <details class="wi"> block.
+     Keep your explanations short, neutral and factual. -->
+<section id="whatis" class="rule-top">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Plain-Language Primers</p>
+        <h2>What Is…?</h2>
+        <p>Short, neutral explainers on the laws, institutions and ideas behind the headlines — what they are, where they came from, and why they matter now.</p>
+      </div>
+    </div>
+
+    <div class="whatis-grid" id="whatisGrid"><!-- explainers render here --></div>
+  </div>
+</section>
+
+<!-- ============================================================ PUBLICATIONS ============================================================ -->
+<section id="publications" class="rule-top">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">The Library</p>
+        <h2>Latest Publications</h2>
+        <p>Peer-reviewed analysis across the fields shaping Europe's legal future.</p>
+      </div>
+      <a href="#submit" class="btn btn-ghost">Contribute →</a>
+    </div>
+
+    <!-- filter by topic -->
+    <div class="filters" id="filters">
+      <button class="filter active" data-f="all">All</button>
+      <button class="filter" data-f="digital">Digital Law</button>
+      <button class="filter" data-f="migration">Migration</button>
+      <button class="filter" data-f="environment">Environment</button>
+      <button class="filter" data-f="governance">Governance</button>
+    </div>
+
+    <!-- EDIT: add / remove cards here. data-cat must match a filter. -->
+    <div class="grid" id="pubGrid">
+      <!-- Publications are rendered here from your saved data (see the Editor panel). -->
+    </div>
+    <p id="pubEmpty" class="pub-empty" style="display:none">No publications in this category yet.</p>
+  </div>
+</section>
+
+<!-- ============================================================ TWO STREAMS ============================================================ -->
+<section id="streams" class="about">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Two Tracks, One Standard</p>
+        <h2>Where Your Work Belongs</h2>
+        <p id="streamsIntro">We publish rising and established voices side by side — each with editorial support tuned to where you are in your career.</p>
+      </div>
+    </div>
+
+    <div class="streams">
+      <div class="stream">
+        <span class="num">01</span>
+        <p class="eyebrow" id="stuEyebrow">For Students</p>
+        <h3 id="stuTitle">Undergraduate &amp; Master's Review</h3>
+        <p id="stuDesc">A dedicated, mentored space for undergraduate and master's students to publish serious work on European law. Every accepted piece is paired with an editor who guides it to publication.</p>
+        <ul id="stuBullets">
+          <li>Open to enrolled undergraduate and master's students across any discipline</li>
+          <li>Editorial mentoring and structured feedback before publication</li>
+          <li>A citable byline and a permanent home for your work</li>
+          <li>All five formats welcome — opinion, review, article, report or policy paper</li>
+        </ul>
+        <a href="#submit" class="btn btn-ghost">Submit as a Student →</a>
+      </div>
+
+      <div class="stream scholars">
+        <span class="num">02</span>
+        <p class="eyebrow" id="schEyebrow">For Established Voices</p>
+        <h3 id="schTitle">Developed Scholars</h3>
+        <p id="schDesc">For PhD candidates, independent researchers, practitioners and professors. A rigorous, peer-reviewed channel for analysis that informs policy and practice.</p>
+        <ul id="schBullets">
+          <li>PhD researchers, post-docs and independent scholars</li>
+          <li>Practitioners, professors and policy professionals</li>
+          <li>Double-blind editorial review for longer formats</li>
+          <li>Priority consideration for our featured analysis slot</li>
+        </ul>
+        <a href="#submit" class="btn btn-gold" style="background:#8c2f39;color:#fff;border-color:#8c2f39">Submit as a Scholar →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ SUBMIT ============================================================ -->
+<section id="submit" class="rule-top">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Call for Contributions</p>
+        <h2>Submit Your Work</h2>
+        <p id="subIntro">We accept five formats. Choose the one that fits your argument, follow the word counts below, and reference in Harvard (author–date) style.</p>
+      </div>
+    </div>
+
+    <!-- the four publication formats + word counts -->
+    <div class="types" id="typesGrid">
+      <div class="type">
+        <h4>Book Review</h4>
+        <div class="words">1,000 – 1,500 words</div>
+        <p>A critical engagement with a recent book on European law, policy or institutions.</p>
+      </div>
+      <div class="type">
+        <h4>Article</h4>
+        <div class="words">2,500 – 4,500 words</div>
+        <p>Original analysis or argument on a question of European law and its development.</p>
+      </div>
+      <div class="type">
+        <h4>Report</h4>
+        <div class="words">≈ 2,000 words</div>
+        <p>An evidence-led account of how a rule, ruling or policy is working in practice.</p>
+      </div>
+      <div class="type">
+        <h4>Policy Suggestion Paper</h4>
+        <div class="words">≈ 1,500 words</div>
+        <p>Concrete, actionable recommendations addressed to a defined decision-maker.</p>
+      </div>
+      <div class="type">
+        <h4>Short Opinion Article</h4>
+        <div class="words">Up to 1,000 words</div>
+        <p>A sharp, timely take on a development in any of our fields — digital, migration, environment or governance.</p>
+      </div>
+    </div>
+
+    <div class="submit-grid">
+      <div class="submit-copy">
+        <h3>How submission works</h3>
+        <p>Submissions are reviewed on a rolling basis. We aim to respond within three weeks. There is no fee to submit or to publish. You can use any email address — a personal Gmail account is perfectly fine, you don't need an institutional one.</p>
+        <ol class="steps" id="stepsList">
+          <li><span class="sn">1</span><span>Pick your track (Students or Developed Scholar) and your format.</span></li>
+          <li><span class="sn">2</span><span>Complete the form, including a short abstract of 150–200 words.</span></li>
+          <li><span class="sn">3</span><span>Email your manuscript as a .docx or PDF to our submissions desk.</span></li>
+          <li><span class="sn">4</span><span>An editor is assigned; you receive feedback and, if accepted, a publication date.</span></li>
+        </ol>
+        <p class="house-rule"><strong>House style — required</strong><span id="houseRuleBody">All submissions must use the Harvard (author–date) referencing system: in-text citations in the form (Author Year: page) and a complete alphabetical reference list at the end. Manuscripts not in Harvard style will be returned for correction before they enter review.</span></p>
+      </div>
+
+      <!-- The form below shows a confirmation message on submit (demo).
+           To collect real submissions, either:
+           (a) point the form 'action' to a form service (Formspree, Google Forms, etc.), or
+           (b) keep the mailto fallback in the script. -->
+      <form class="sub" id="subForm">
+        <div class="two">
+          <div class="field"><label>Full name</label><input id="sf-name" type="text" required placeholder="Your name" /></div>
+          <div class="field"><label>Email</label><input id="sf-email" type="email" required placeholder="you@gmail.com or your institution" /></div>
+        </div>
+        <div class="field"><label>Affiliation / Institution</label><input id="sf-aff" type="text" placeholder="University, organisation or 'independent'" /></div>
+        <div class="two">
+          <div class="field"><label>Track</label>
+            <select id="sf-track" required>
+              <option value="">Select…</option>
+              <option>Undergraduate &amp; Master's Review</option>
+              <option>Developed Scholar</option>
+            </select>
+          </div>
+          <div class="field"><label>Format</label>
+            <select id="sf-format" required>
+              <option value="">Select…</option>
+              <option>Book Review (1,000–1,500)</option>
+              <option>Article (2,500–4,500)</option>
+              <option>Report (≈2,000)</option>
+              <option>Policy Suggestion Paper (≈1,500)</option>
+              <option>Short Opinion Article (≤1,000)</option>
+            </select>
+          </div>
+        </div>
+        <div class="field"><label>Working title</label><input id="sf-title" type="text" placeholder="The title of your piece" /></div>
+        <div class="field"><label>Abstract (150–200 words)</label><textarea id="sf-abstract" placeholder="Tell us your argument and why it matters now…"></textarea></div>
+        <button type="submit" class="btn btn-gold" style="width:100%;justify-content:center">Send Submission →</button>
+        <div class="sub-msg" id="subMsg">✓ Thank you — your submission has been recorded and your email app should open so you can send the manuscript to our desk.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ ABOUT ============================================================ -->
+<section id="about" class="about">
+  <div class="wrap about-grid">
+    <div>
+      <p class="eyebrow">About the Review</p>
+      <blockquote id="aboutQuote">An independent review of <span class="hl">European law and policy</span> — reading the rules that will define the continent's next decade.</blockquote>
+    </div>
+    <div class="pillars" id="pillars">
+      <div class="pillar"><span class="eyebrow">Law</span><p>Rigorous, accessible analysis of the EU's evolving legal architecture.</p></div>
+      <div class="pillar"><span class="eyebrow">Policy</span><p>Bridging scholarship and practice with actionable, well-sourced argument.</p></div>
+      <div class="pillar"><span class="eyebrow">Future</span><p>Tracking digital, migration and environmental rules as they take shape.</p></div>
+      <div class="pillar"><span class="eyebrow">Open</span><p>No paywalls, no submission fees — a platform for students and scholars alike.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ CONTACT ============================================================ -->
+<section id="contact" class="rule-top">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <p class="eyebrow">Get in Touch</p>
+        <h2>Contact</h2>
+        <p>Questions, pitches and partnership enquiries are always welcome.</p>
+      </div>
+    </div>
+    <!-- EDIT: replace these placeholder addresses with your real ones -->
+    <div class="contact-grid">
+      <div class="cbox">
+        <p class="eyebrow">Submissions</p>
+        <a id="emailSub" href="mailto:submissions@lexeuropareview.eu">submissions@lexeuropareview.eu</a>
+        <p style="margin-top:8px">Manuscripts, abstracts and pitches.</p>
+      </div>
+      <div class="cbox">
+        <p class="eyebrow">Editorial</p>
+        <a id="emailEd" href="mailto:editorial@lexeuropareview.eu">editorial@lexeuropareview.eu</a>
+        <p style="margin-top:8px">Press, corrections and general editorial.</p>
+      </div>
+      <div class="cbox">
+        <p class="eyebrow">Where to find us</p>
+        <p style="margin-top:2px">United Kingdom · Online<br/>Follow us on LinkedIn &amp; X</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ NEWSLETTER ============================================================ -->
+<!-- To collect real sign-ups, connect this to an email service (Mailchimp,
+     Substack, Buttondown, etc.) or point it at a form endpoint. -->
+<section id="newsletter" class="newsletter">
+  <div class="wrap nl-grid">
+    <div class="nl-copy">
+      <p class="eyebrow" id="nlEyebrow">Stay Informed</p>
+      <h2 id="nlHeading">Subscribe to Our Newsletter</h2>
+      <p id="nlText">The week in European law and policy — new analysis, the developments worth watching, and headlines from the wire, delivered to your inbox. No noise, no spam.</p>
+    </div>
+    <div class="nl-form">
+      <div class="nl-row">
+        <input id="nlEmail" type="email" placeholder="your.name@email.com" aria-label="Email address" />
+        <button id="nlSend" class="btn">Subscribe →</button>
+      </div>
+      <p class="nl-fine">Free. Unsubscribe anytime. We'll never share your address.</p>
+      <div class="nl-msg" id="nlMsg">✓ You're on the list — thank you. (Demo: connect this to your email service to go live.)</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ FOOTER ============================================================ -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <div class="name" id="siteNameFoot">Lex<span class="name-eu">Europa</span> Review</div>
+        <div class="tag" id="siteTagFoot">Law · Policy · Future</div>
+        <p>An independent review of European law and policy, publishing students and scholars side by side.</p>
+      </div>
+      <div class="fcol">
+        <h5>Sections</h5>
+        <a href="#publications">Digital Law</a>
+        <a href="#publications">Migration</a>
+        <a href="#publications">Environment</a>
+        <a href="#publications">Governance</a>
+      </div>
+      <div class="fcol">
+        <h5>Contribute</h5>
+        <a href="#streams">Undergraduate &amp; Master's Review</a>
+        <a href="#streams">Developed Scholars</a>
+        <a href="#submit">Submission Guidelines</a>
+        <a href="#insight">Insight Engine</a>
+      </div>
+      <div class="fcol">
+        <h5>The Review</h5>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
+        <a href="#newsletter">Newsletter</a>
+        <a href="mailto:submissions@lexeuropareview.eu">Submit Your Work</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 LexEuropa Review. All rights reserved.</span>
+      <span>Independent · Open Access · No Submission Fees · <a href="#" id="editorLink" style="color:#8a93a6;border-bottom:1px dotted #8a93a6">Editor</a></span>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================ EDITOR PANEL (admin) ============================================================ -->
+<!-- This panel lets YOU manage the site from your own browser. Everything is saved
+     in this browser's localStorage. To change the editor passcode, edit EDITOR_PASS
+     in the script below. -->
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-panel">
+    <div class="admin-head">
+      <div><span class="admin-title">Editor Panel</span><span class="admin-sub">Saved in this browser</span></div>
+      <button class="admin-x" id="adminClose" aria-label="Close">✕</button>
+    </div>
+    <div class="admin-tabs">
+      <button class="atab active" data-tab="pubs">Publications</button>
+      <button class="atab" data-tab="appearance">Appearance</button>
+      <button class="atab" data-tab="branding">Branding</button>
+      <button class="atab" data-tab="hero">Hero</button>
+      <button class="atab" data-tab="whatis">What Is?</button>
+      <button class="atab" data-tab="contact">Contact</button>
+      <button class="atab" data-tab="subs">Submissions</button>
+      <button class="atab" data-tab="news">Newsletter</button>
+      <button class="atab" data-tab="backup">Backup</button>
+    </div>
+    <div class="admin-body">
+      <!-- Publications tab -->
+      <section class="apane active" data-pane="pubs">
+        <h4 id="pubFormTitle">Add a publication</h4>
+        <div class="afield"><label>Title</label><input id="ap-title" type="text" placeholder="Article title"></div>
+        <div class="atwo">
+          <div class="afield"><label>Subject</label><select id="ap-cat">
+            <option value="digital">Digital Law</option><option value="migration">Migration</option>
+            <option value="environment">Environment</option><option value="governance">Governance</option></select></div>
+          <div class="afield"><label>Format</label><select id="ap-type">
+            <option>Article</option><option>Report</option><option>Book Review</option>
+            <option>Policy Paper</option><option>Opinion</option></select></div>
+        </div>
+        <div class="atwo">
+          <div class="afield"><label>Author</label><input id="ap-author" type="text" placeholder="Author name"></div>
+          <div class="afield"><label>Words</label><input id="ap-words" type="text" placeholder="e.g. 2,500 words"></div>
+        </div>
+        <div class="afield"><label>Date</label><input id="ap-date" type="text" placeholder="e.g. 9 Jun 2026"></div>
+        <div class="afield"><label>Link (optional)</label><input id="ap-link" type="text" placeholder="https://… (where the full piece lives)"></div>
+        <div class="afield"><label>Summary</label><textarea id="ap-excerpt" placeholder="One or two sentences describing the piece"></textarea></div>
+        <div class="afield"><label>Cover photo (optional)</label><input id="ap-imgfile" type="file" accept="image/*">
+          <div id="ap-imgprev" style="margin-top:8px"></div></div>
+        <input type="hidden" id="ap-id"><input type="hidden" id="ap-img">
+        <div class="arow"><button class="btn btn-gold" id="ap-save">Save publication</button><button class="btn btn-ghost" id="ap-cancel" style="display:none">Cancel edit</button></div>
+        <h4 style="margin-top:26px">Your publications (<span id="pubCount">0</span>)</h4>
+        <div id="adminPubList" class="alist"></div>
+      </section>
+
+      <!-- Appearance tab -->
+      <section class="apane" data-pane="appearance">
+        <h4>Colours</h4>
+        <p class="amini">Pick your palette. Changes apply instantly and are saved. These colours apply in both light and night mode.</p>
+        <div class="atwo">
+          <div class="afield"><label>Accent (links, buttons)</label><input type="color" id="c-gold"></div>
+          <div class="afield"><label>Brand navy (dark panels)</label><input type="color" id="c-ink"></div>
+        </div>
+        <div class="atwo">
+          <div class="afield"><label>Page background</label><input type="color" id="c-paper"></div>
+          <div class="afield"><label>Card surface</label><input type="color" id="c-card"></div>
+        </div>
+        <div class="afield"><label>"Europa" in the name</label><input type="color" id="c-eu"></div>
+        <div class="arow"><button class="btn btn-ghost" id="c-reset">↺ Reset colours</button></div>
+      </section>
+
+      <!-- Branding tab -->
+      <section class="apane" data-pane="branding">
+        <h4>Name &amp; tagline</h4>
+        <div class="afield"><label>Site name</label><input id="b-name" type="text" placeholder="LexEuropa Review"></div>
+        <p class="amini">Tip: the word "Europa" inside the name is shown bold &amp; blue automatically.</p>
+        <div class="afield"><label>Tagline</label><input id="b-tag" type="text" placeholder="Law · Policy · Future"></div>
+        <h4 style="margin-top:22px">Logo</h4>
+        <p class="amini">Upload your own logo image to replace the gold seal in the header (a square PNG works best). Leave empty to keep the seal.</p>
+        <div class="afield"><input id="b-logofile" type="file" accept="image/*"><div id="b-logoprev" style="margin-top:8px"></div></div>
+        <div class="arow"><button class="btn btn-ghost btn-sm" id="b-logoclear">Remove custom logo</button></div>
+      </section>
+
+      <!-- Hero tab -->
+      <section class="apane" data-pane="hero">
+        <h4>Hero (top feature)</h4>
+        <div class="afield"><label>Small label</label><input id="h-eyebrow" type="text" placeholder="Featured Analysis · Digital Law"></div>
+        <div class="afield"><label>Headline</label><textarea id="h-title" placeholder="Your big headline"></textarea></div>
+        <div class="afield"><label>Standfirst (sub-text)</label><textarea id="h-dek" placeholder="One-line summary under the headline"></textarea></div>
+        <h4 style="margin-top:22px">Hero image</h4>
+        <p class="amini">Upload a picture to replace the gold medallion in the hero. Leave empty to keep the medallion.</p>
+        <div class="afield"><input id="h-imgfile" type="file" accept="image/*"><div id="h-imgprev" style="margin-top:8px"></div></div>
+        <div class="arow"><button class="btn btn-ghost btn-sm" id="h-imgclear">Remove hero image</button></div>
+      </section>
+
+      <!-- Contact tab -->
+      <!-- What Is? tab -->
+      <section class="apane" data-pane="whatis">
+        <h4 id="wiFormTitle">Add a "What Is?" explainer</h4>
+        <div class="atwo">
+          <div class="afield"><label>Kicker (small label)</label><input id="wi-kicker" type="text" placeholder="e.g. Digital Law"></div>
+          <div class="afield"><label>Date tag (optional)</label><input id="wi-since" type="text" placeholder="e.g. In force since 2018"></div>
+        </div>
+        <div class="afield"><label>Term / title</label><input id="wi-term" type="text" placeholder="e.g. The EU AI Act"></div>
+        <div class="afield"><label>Explanation</label><textarea id="wi-body" placeholder="A short, neutral explanation…"></textarea></div>
+        <input type="hidden" id="wi-id">
+        <div class="arow"><button class="btn btn-gold" id="wi-save">Save explainer</button><button class="btn btn-ghost" id="wi-cancel" style="display:none">Cancel edit</button></div>
+        <h4 style="margin-top:26px">Your explainers (<span id="wiCount">0</span>)</h4>
+        <div id="adminWiList" class="alist"></div>
+      </section>
+
+      <!-- Contact tab -->
+      <section class="apane" data-pane="contact">
+        <h4>Contact details</h4>
+        <div class="afield"><label>Submissions email</label><input id="ct-sub" type="email" placeholder="submissions@yoursite.com"></div>
+        <p class="amini">This is also where the submission form sends entries.</p>
+        <div class="afield"><label>Editorial email</label><input id="ct-ed" type="email" placeholder="editorial@yoursite.com"></div>
+        <div class="arow"><button class="btn btn-gold" id="ct-save">Save contact</button></div>
+      </section>
+
+      <!-- Submissions tab -->
+      <section class="apane" data-pane="subs">
+        <div class="arow" style="justify-content:space-between"><h4>Received submissions (<span id="subCount">0</span>)</h4>
+          <button class="btn btn-ghost btn-sm" id="subsExport">Export</button></div>
+        <p class="amini">These are submissions captured in this browser. People submitting from other devices won't appear here — connect a form service (see Backup tab notes) to collect them centrally.</p>
+        <div id="adminSubList" class="alist"></div>
+      </section>
+      <!-- Newsletter tab -->
+      <section class="apane" data-pane="news">
+        <div class="arow" style="justify-content:space-between"><h4>Newsletter sign-ups (<span id="newsCount">0</span>)</h4>
+          <button class="btn btn-ghost btn-sm" id="newsExport">Export</button></div>
+        <p class="amini">Captured in this browser only. For a real mailing list use Mailchimp, Substack or Buttondown (see Backup tab).</p>
+        <div id="adminNewsList" class="alist"></div>
+      </section>
+      <!-- Backup tab -->
+      <section class="apane" data-pane="backup">
+        <h4>Back up &amp; restore</h4>
+        <p class="amini">Your data lives only in this browser. Export a backup file regularly, and import it on another device to move your work.</p>
+        <div class="arow"><button class="btn btn-gold" id="exportAll">⬇ Export all data</button>
+          <label class="btn btn-ghost" style="cursor:pointer">⬆ Import data<input type="file" id="importFile" accept="application/json" style="display:none"></label></div>
+        <h4 style="margin-top:24px">Make publications permanent (for visitors)</h4>
+        <p class="amini">Because localStorage isn't shared, visitors won't see publications you add here. To publish them for everyone, click below to copy a code block, then paste it to me (or into the file) and they'll be baked in for all visitors.</p>
+        <div class="arow"><button class="btn btn-ghost" id="copyPubs">📋 Copy publications code</button>
+          <button class="btn btn-ghost" id="resetPubs">↺ Reset to samples</button></div>
+        <textarea id="exportBox" class="amini-box" readonly placeholder="Copied code will appear here…"></textarea>
+      </section>
+    </div>
+  </div>
+</div>
+
+
+<script>
+/* ============================================================
+   HERO ILLUSTRATION — draws the arc of 12 European stars
+============================================================ */
+(function(){
+  const g=document.getElementById('arcstars');if(!g)return;
+  function star(cx,cy,r){
+    let p='';const spikes=5,inner=r*0.42;
+    for(let i=0;i<spikes*2;i++){
+      const rad=(i%2===0)?r:inner;
+      const a=(Math.PI/spikes)*i-Math.PI/2;
+      p+=(i===0?'M':'L')+(cx+Math.cos(a)*rad).toFixed(1)+','+(cy+Math.sin(a)*rad).toFixed(1);
+    }
+    return p+'Z';
+  }
+  const N=12,cx0=800,cy0=400,R=240;
+  for(let i=0;i<N;i++){
+    const t=(i/N)*Math.PI*2-Math.PI/2;
+    const path=document.createElementNS('http://www.w3.org/2000/svg','path');
+    path.setAttribute('d',star(cx0+R*Math.cos(t),cy0+R*Math.sin(t),14));
+    g.appendChild(path);
+  }
+})();
+
+/* ============================================================
+   NIGHT MODE TOGGLE
+   Remembers your choice between visits (when hosted on a real
+   site). Falls back gracefully if storage isn't available.
+============================================================ */
+(function(){
+  const root=document.documentElement;
+  let saved=null;
+  try{saved=localStorage.getItem('lex-theme');}catch(e){}
+  if(saved){root.setAttribute('data-theme',saved);}
+  else if(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches){
+    root.setAttribute('data-theme','dark');
+  }else{root.setAttribute('data-theme','light');}
+
+  const btn=document.getElementById('themeToggle');
+  if(btn)btn.addEventListener('click',()=>{
+    const next=root.getAttribute('data-theme')==='dark'?'light':'dark';
+    root.setAttribute('data-theme',next);
+    try{localStorage.setItem('lex-theme',next);}catch(e){}
+  });
+})();
+
+/* ============================================================
+   MOBILE NAV
+============================================================ */
+document.getElementById('menuToggle').addEventListener('click',()=>{
+  document.getElementById('mobileNav').classList.toggle('open');
+});
+document.querySelectorAll('.mobile-nav a').forEach(a=>a.addEventListener('click',()=>{
+  document.getElementById('mobileNav').classList.remove('open');
+}));
+
+/* ============================================================
+   NEWS WIRE — rotating headlines
+   EDIT these, or replace with a live news-API / RSS feed.
+============================================================ */
+const WIRE_HEADLINES=[
+  {t:"AI Act enforcement guidance expected before year-end",s:"Commission"},
+  {t:"Member states report first figures under new asylum procedure",s:"Migration"},
+  {t:"CBAM definitive period: importers brace for compliance",s:"Environment"},
+  {t:"DMA: regulators open fresh interoperability inquiry",s:"Digital"},
+  {t:"Court of Justice clarifies data-transfer standard",s:"CJEU"},
+  {t:"Rule-of-law mechanism cited in new funding decision",s:"Governance"}
+];
+(function(){
+  const feed=document.getElementById('wireFeed');
+  WIRE_HEADLINES.forEach((h,i)=>{
+    const el=document.createElement('div');
+    el.className='wire-item'+(i===0?' on':'');
+    el.innerHTML='<span class="wire-source">'+h.s+'</span><b>'+h.t+'</b>';
+    feed.appendChild(el);
+  });
+  const items=feed.querySelectorAll('.wire-item');let idx=0;
+  setInterval(()=>{
+    items[idx].classList.remove('on');
+    idx=(idx+1)%items.length;
+    items[idx].classList.add('on');
+  },4200);
+})();
+
+/* ============================================================
+   PUBLICATION FILTERS (drive dynamic rendering — see data script)
+============================================================ */
+window.LEX_FILTER='all';
+document.getElementById('filters').addEventListener('click',e=>{
+  const b=e.target.closest('.filter');if(!b)return;
+  document.querySelectorAll('.filter').forEach(f=>f.classList.remove('active'));
+  b.classList.add('active');
+  window.LEX_FILTER=b.dataset.f;
+  if(window.renderPubs)window.renderPubs();
+});
+function applyTopic(topic){
+  const btn=document.querySelector('.filter[data-f="'+topic+'"]');
+  if(btn)btn.click();
+  document.getElementById('mobileNav').classList.remove('open');
+}
+document.querySelectorAll('[data-topic]').forEach(a=>{
+  a.addEventListener('click',()=>{setTimeout(()=>applyTopic(a.dataset.topic),60);});
+});
+
+/* ============================================================
+   INSIGHT ENGINE  (AI assistant)
+   - If this page runs INSIDE claude.ai as an artifact, it calls
+     the model live. If it's hosted elsewhere, the call fails
+     gracefully and a sensible sample insight is shown instead.
+   - To run live on your own site, route this through your own
+     backend that holds an API key (never put a key in the page).
+============================================================ */
+const FALLBACK={
+  digital:"Across our digital-law coverage, the through-line is the 'Brussels Effect': EU rules (the AI Act, DMA and GDPR) set de-facto global standards because compliance is cheaper to apply everywhere than to localise. For non-EU firms the practical takeaway is that risk-tiering and gatekeeper obligations increasingly travel with the product, not the border. See our AI Act feature and the DMA enforcement article.",
+  migration:"Our migration analysis focuses on the new Pact's accelerated border procedure. The early reports suggest implementation — not legislation — is now the decisive variable: outcomes diverge sharply by member state capacity. See 'The Pact in Practice'.",
+  environment:"On the environment, our work tracks CBAM and the Nature Restoration Law. The recurring tension is ambition versus administrability: strong 2030 targets meet uneven national capacity and litigation risk. See the CBAM article and the restoration policy paper.",
+  default:"LexEuropa Review's published work clusters around four themes — digital law, migration, environment and governance — and a single argument recurs across them: European rule-making increasingly shapes global practice, but its real effect depends on national implementation. Ask about a specific area (e.g. the AI Act, CBAM, or the asylum Pact) for a sourced synthesis."
+};
+function pickFallback(q){
+  q=q.toLowerCase();
+  if(/ai act|dma|gdpr|data|digital|platform|tech/.test(q))return FALLBACK.digital;
+  if(/asylum|migrat|border|pact|refugee|return/.test(q))return FALLBACK.migration;
+  if(/cbam|carbon|environ|climate|nature|restoration/.test(q))return FALLBACK.environment;
+  return FALLBACK.default;
+}
+const answerBox=document.getElementById('answer');
+function showAnswer(text,mode){
+  answerBox.classList.add('show');
+  answerBox.innerHTML='<div class="tagrow"><span>Insight Engine</span><span>'+mode+'</span></div>'+text;
+}
+async function ask(q){
+  if(!q.trim())return;
+  answerBox.classList.add('show');
+  answerBox.innerHTML='<div class="tagrow"><span>Insight Engine</span><span>synthesising…</span></div><span class="thinking"><i></i><i></i><i></i></span>';
+  try{
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-20250514",max_tokens:1000,
+        messages:[{role:"user",content:
+          "You are the Insight Engine for LexEuropa Review, a review of European law and policy covering digital law, migration, environment and governance. In 3-4 sentences, give a concise, neutral, well-informed synthesis answering this reader question. End by suggesting which topic area to read further. Question: "+q}]
+      })
+    });
+    if(!res.ok)throw new Error("offline");
+    const data=await res.json();
+    const txt=data.content.filter(b=>b.type==="text").map(b=>b.text).join(" ").trim();
+    showAnswer(txt||pickFallback(q),"live");
+  }catch(err){
+    // Hosted outside claude.ai → graceful sample insight
+    showAnswer(pickFallback(q),"sample");
+  }
+}
+document.getElementById('askSend').addEventListener('click',()=>ask(document.getElementById('askInput').value));
+document.getElementById('askInput').addEventListener('keydown',e=>{if(e.key==='Enter')ask(e.target.value);});
+document.getElementById('chips').addEventListener('click',e=>{
+  const c=e.target.closest('.chip');if(!c)return;
+  document.getElementById('askInput').value=c.textContent;ask(c.textContent);
+});
+
+/* ============================================================
+   DATA + EDITOR ENGINE
+   All data is stored in this browser via localStorage.
+   • EDITOR_PASS — change this to set your editor passcode.
+   • SUBMIT_EMAIL — where submissions are emailed.
+============================================================ */
+(function(){
+  const EDITOR_PASS = "Samax73926@";                       // <-- your editor passcode
+  let SUBMIT_EMAIL = "submissions@lexeuropareview.eu";      // overridden by Contact settings
+
+  const CAT_LABEL={digital:"Digital Law",migration:"Migration",environment:"Environment",governance:"Governance"};
+  const FIGVAR=["","fig-b","fig-b","fig-c"]; // rotates the card panel tint
+
+  const DEFAULT_PUBS=[
+    {id:1,cat:"digital",type:"Article",title:"Interoperability or Lock-In? The DMA's First Enforcement Year",excerpt:"Gatekeeper obligations were meant to pry open closed ecosystems. An assessment of where compliance has — and hasn't — moved the market.",author:"A. Novak",words:"4,100 words",date:"2 Jun 2026",link:""},
+    {id:2,cat:"migration",type:"Report",title:"The Pact in Practice: First Returns Under the New Asylum Procedure",excerpt:"A field-level report on how member states are operating the accelerated border procedure in its opening months.",author:"M. Haddad",words:"2,000 words",date:"1 Jun 2026",link:""},
+    {id:3,cat:"environment",type:"Article",title:"Carbon Borders: Reading CBAM's Second Compliance Cycle",excerpt:"As definitive obligations approach, importers face a steeper administrative climb. What the data tells us about readiness.",author:"L. Bergström",words:"3,300 words",date:"28 May 2026",link:""},
+    {id:4,cat:"governance",type:"Policy Paper",title:"Rule of Law Conditionality — Three Years On",excerpt:"A set of concrete recommendations for sharpening the link between EU funds and judicial independence.",author:"P. Kowalski",words:"1,500 words",date:"24 May 2026",link:""},
+    {id:5,cat:"digital",type:"Book Review",title:'Reviewed: "Data Sovereignty in the European Order"',excerpt:"A thoughtful but uneven study of where European data ambition meets the limits of enforcement.",author:"S. Ferreira",words:"1,300 words",date:"20 May 2026",link:""},
+    {id:6,cat:"environment",type:"Policy Paper",title:"Restoring Nature: Implementing the Restoration Law Without Litigation Gridlock",excerpt:"Practical proposals to help member states meet 2030 targets while limiting legal exposure.",author:"Students' Review",words:"1,500 words",date:"16 May 2026",link:""},
+    {id:7,cat:"governance",type:"Opinion",title:"Opinion: Europe Needs a Single Voice on Enforcement — Not Twenty-Seven",excerpt:"Fragmented national enforcement is quietly undermining the EU's best legislation. A short argument for a coordinated approach.",author:"R. Adeyemi",words:"900 words",date:"14 May 2026",link:""}
+  ];
+
+  // ---- storage helpers (safe if localStorage is blocked) ----
+  function load(key,fallback){try{const v=localStorage.getItem(key);return v?JSON.parse(v):fallback;}catch(e){return fallback;}}
+  function save(key,val){try{localStorage.setItem(key,JSON.stringify(val));return true;}catch(e){return false;}}
+  function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+
+  const DEFAULT_WHATIS=[{"kicker": "Concept", "term": "The Brussels Effect", "body": "The idea, named by scholar Anu Bradford, that the EU exports its rules to the rest of the world without firing a shot: because the European single market is so large, global companies often find it cheaper to apply EU standards everywhere than to maintain separate products for separate markets. Over time, those EU rules become the de-facto global baseline — in privacy, chemicals, food safety and, increasingly, technology.", "since": "Coined 2012 · in force across many sectors", "id": 1}, {"kicker": "Digital Law", "term": "The EU AI Act", "body": "The world's first comprehensive law on artificial intelligence. It sorts AI systems into risk tiers — from banned uses, through \"high-risk\" systems that face strict obligations, down to minimal-risk tools — and places duties on both developers and deployers. Agreed in 2024 after years of negotiation, its rules are phasing in over several years, with prohibitions and general-purpose AI duties arriving first.", "since": "Agreed 2024 · phasing in", "id": 2}, {"kicker": "Digital Law", "term": "GDPR", "body": "The General Data Protection Regulation — the EU's landmark data-protection law. It gives individuals rights over their personal data (access, correction, erasure, portability) and obliges organisations to justify and secure how they process it, backed by fines that can reach a percentage of global turnover. It became the template that privacy laws around the world have since borrowed from.", "since": "In force since May 2018", "id": 3}, {"kicker": "Digital Law", "term": "The Digital Markets Act", "body": "A competition law aimed at the largest online platforms, designated as \"gatekeepers.\" It bans certain practices (such as self-preferencing) and requires others (such as interoperability and letting users uninstall pre-loaded apps), with the goal of keeping digital markets open and contestable. It marks a shift from punishing abuses after the fact to setting rules in advance.", "since": "Applying since 2023–24", "id": 4}, {"kicker": "Environment", "term": "CBAM", "body": "The Carbon Border Adjustment Mechanism — in effect a carbon tariff. It puts a price on the emissions embedded in certain imports (such as steel, cement, aluminium and fertilisers) so that goods made under weaker climate rules abroad don't undercut cleaner EU production. After a transitional reporting phase, importers move to full financial obligations.", "since": "Transitional from 2023 · definitive from 2026", "id": 5}, {"kicker": "Migration", "term": "The Migration &amp; Asylum Pact", "body": "A package of reforms overhauling how the EU handles asylum and migration. It introduces faster screening and border procedures, common rules for processing claims, and a \"solidarity\" mechanism so member states share responsibility — either by relocating applicants or contributing in other ways. Adopted in 2024 after long deadlock, its provisions are being implemented across the bloc.", "since": "Adopted 2024 · applying from 2026", "id": 6}, {"kicker": "Governance", "term": "Rule-of-Law Conditionality", "body": "A mechanism that lets the EU suspend or cut funding to a member state where breaches of the rule of law put the bloc's money at risk. It was created to give the Union a financial lever where political tools had stalled, and its first uses have made it one of the most closely watched instruments in EU governance.", "since": "In force since 2021", "id": 7}];
+  let pubs = load("lex_pubs", DEFAULT_PUBS.slice());
+  let subs = load("lex_subs", []);
+  let news = load("lex_news", []);
+  let settings = load("lex_settings", {});
+  let whatis = load("lex_whatis", DEFAULT_WHATIS.slice());
+
+  function byId(id){return document.getElementById(id);}
+
+  // ---- render the public publications grid ----
+  const grid=document.getElementById("pubGrid");
+  const emptyMsg=document.getElementById("pubEmpty");
+  function cardHTML(p,i){
+    const fig=FIGVAR[i%FIGVAR.length];
+    const titleHTML = p.link ? '<a href="'+esc(p.link)+'" target="_blank" rel="noopener">'+esc(p.title)+'</a>' : '<a href="#">'+esc(p.title)+'</a>';
+    const pic = p.img ? '<img src="'+esc(p.img)+'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1">' : '<span class="ph">Photo</span>';
+    return '<article class="card" data-cat="'+esc(p.cat)+'">'
+      +'<div class="toprow"><span class="cat-tag">'+esc(CAT_LABEL[p.cat]||p.cat)+'</span><span class="type-tag">'+esc(p.type)+'</span></div>'
+      +'<div class="figure card-figure '+fig+'">'+pic+'<svg class="card-watermark" viewBox="0 0 100 100" aria-hidden="true"><use href="#leSeal" width="100" height="100"/></svg></div>'
+      +'<h3>'+titleHTML+'</h3>'
+      +'<p class="excerpt">'+esc(p.excerpt)+'</p>'
+      +'<div class="foot"><span class="who">'+esc(p.author)+'</span><span>·</span><span>'+esc(p.words)+'</span><span>·</span><span>'+esc(p.date)+'</span></div>'
+      +'</article>';
+  }
+  window.renderPubs=function(){
+    const f=window.LEX_FILTER||"all";
+    const list=pubs.filter(p=>f==="all"||p.cat===f);
+    grid.innerHTML=list.map(cardHTML).join("");
+    if(emptyMsg)emptyMsg.style.display=list.length?"none":"block";
+  };
+
+  // ---- apply saved colours / text / images / emails ----
+  function shade(hex,p){hex=(hex||"").replace("#","");if(hex.length===3)hex=hex.split("").map(x=>x+x).join("");
+    let n=parseInt(hex,16);if(isNaN(n))return hex;let r=(n>>16)+Math.round(255*p),g=((n>>8)&255)+Math.round(255*p),b=(n&255)+Math.round(255*p);
+    r=Math.max(0,Math.min(255,r));g=Math.max(0,Math.min(255,g));b=Math.max(0,Math.min(255,b));
+    return "#"+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1);}
+  function setName(name){const html=esc(name).replace("Europa",'<span class="name-eu">Europa</span>');
+    byId("siteName").innerHTML=html;byId("siteNameFoot").innerHTML=html;}
+  function toggleImg(imgId,hideId,src){const img=byId(imgId),hide=byId(hideId);
+    if(src){img.src=src;img.style.display="";if(hide)hide.style.display="none";}
+    else{img.style.display="none";if(hide)hide.style.display="";}}
+  function applySettings(){
+    const st=document.documentElement.style,c=settings.colors||{};
+    function setv(n,v){if(v)st.setProperty(n,v);else st.removeProperty(n);}
+    setv("--gold",c.gold);setv("--gold-deep",c.gold?shade(c.gold,-0.18):null);
+    setv("--ink",c.ink);setv("--paper",c.paper);setv("--paper-2",c.paper?shade(c.paper,-0.05):null);
+    setv("--card",c.card);setv("--eu",c.eu);
+    const t=settings.text||{};
+    if(t.name!=null)setName(t.name);
+    if(t.tag!=null){byId("siteTag").textContent=t.tag;byId("siteTagFoot").textContent=t.tag;}
+    if(t.heroEyebrow!=null)byId("heroEyebrow").textContent=t.heroEyebrow;
+    if(t.heroTitle!=null)byId("heroTitle").textContent=t.heroTitle;
+    if(t.heroDek!=null)byId("heroDek").textContent=t.heroDek;
+    const em=settings.email||{};
+    if(em.sub){SUBMIT_EMAIL=em.sub;const a=byId("emailSub");if(a){a.textContent=em.sub;a.href="mailto:"+em.sub;}}
+    if(em.ed){const a=byId("emailEd");if(a){a.textContent=em.ed;a.href="mailto:"+em.ed;}}
+    const im=settings.img||{};
+    toggleImg("logoImg","seal",im.logo);
+    toggleImg("heroImg","heroSeal",im.hero);
+  }
+  // ---- render the What Is? explainers ----
+  const whatisGrid=byId("whatisGrid");
+  window.renderWhatis=function(){
+    if(!whatisGrid)return;
+    whatisGrid.innerHTML=whatis.map((w,i)=>
+      '<details class="wi"'+(i===0?' open':'')+'>'
+      +'<summary><span class="wi-head"><span class="wi-kicker">'+esc(w.kicker)+'</span><span class="wi-term">'+esc(w.term)+'</span></span><span class="wi-plus">+</span></summary>'
+      +'<div class="wi-body">'+esc(w.body)+(w.since?'<span class="since">'+esc(w.since)+'</span>':'')+'</div>'
+      +'</details>'
+    ).join("");
+  };
+  renderPubs();
+  renderWhatis();
+  applySettings();
+
+  // ---- Pages CMS content: read data/content.json if present (this is the
+  //      file the CMS edits; it's the live source for all visitors) ----
+  function setText(id,v){if(v!=null&&v!==""){const el=byId(id);if(el)el.textContent=v;}}
+  function setList(id,arr,build){if(Array.isArray(arr)&&arr.length){const el=byId(id);if(el)el.innerHTML=arr.map((x,i)=>build(x,i)).join("");}}
+  let wireTimer=null;
+  function buildWire(list){
+    const feed=byId("wireFeed");if(!feed)return;
+    feed.innerHTML=list.map((t,i)=>'<div class="wire-item'+(i===0?" on":"")+'"><b>'+esc(t)+'</b></div>').join("");
+    const items=feed.querySelectorAll(".wire-item");let idx=0;
+    if(wireTimer)clearInterval(wireTimer);
+    if(items.length>1)wireTimer=setInterval(()=>{items[idx].classList.remove("on");idx=(idx+1)%items.length;items[idx].classList.add("on");},4200);
+  }
+  function applyExtra(d){
+    if(Array.isArray(d.wire)&&d.wire.length)buildWire(d.wire);
+    if(d.streams){const s=d.streams;
+      setText("streamsIntro",s.intro);
+      setText("stuEyebrow",s.studentsEyebrow);setText("stuTitle",s.studentsTitle);setText("stuDesc",s.studentsDesc);
+      setList("stuBullets",s.studentsBullets,b=>'<li>'+esc(b)+'</li>');
+      setText("schEyebrow",s.scholarsEyebrow);setText("schTitle",s.scholarsTitle);setText("schDesc",s.scholarsDesc);
+      setList("schBullets",s.scholarsBullets,b=>'<li>'+esc(b)+'</li>');
+    }
+    if(d.submit){const su=d.submit;
+      setText("subIntro",su.intro);setText("houseRuleBody",su.houseRule);
+      setList("typesGrid",su.formats,f=>'<div class="type"><h4>'+esc(f.name)+'</h4><div class="words">'+esc(f.words)+'</div><p>'+esc(f.desc)+'</p></div>');
+      setList("stepsList",su.steps,(t,i)=>'<li><span class="sn">'+(i+1)+'</span><span>'+esc(t)+'</span></li>');
+    }
+    if(d.newsletter){setText("nlEyebrow",d.newsletter.eyebrow);setText("nlHeading",d.newsletter.heading);setText("nlText",d.newsletter.text);}
+    if(d.about){if(d.about.quote){const q=byId("aboutQuote");if(q)q.textContent=d.about.quote;}
+      setList("pillars",d.about.pillars,p=>'<div class="pillar"><span class="eyebrow">'+esc(p.label)+'</span><p>'+esc(p.text)+'</p></div>');}
+  }
+  fetch("data/content.json",{cache:"no-store"}).then(r=>r.ok?r.json():null).then(d=>{
+    if(!d)return;
+    if(Array.isArray(d.publications)&&d.publications.length)pubs=d.publications.map((p,i)=>Object.assign({id:i+1},p));
+    if(Array.isArray(d.whatis)&&d.whatis.length)whatis=d.whatis.map((w,i)=>Object.assign({id:i+1},w));
+    const s=d.site;
+    if(s){
+      settings.text=settings.text||{};settings.email=settings.email||{};settings.colors=settings.colors||{};settings.img=settings.img||{};
+      if(s.name)settings.text.name=s.name; if(s.tagline)settings.text.tag=s.tagline;
+      if(s.heroEyebrow)settings.text.heroEyebrow=s.heroEyebrow; if(s.heroTitle)settings.text.heroTitle=s.heroTitle; if(s.heroDek)settings.text.heroDek=s.heroDek;
+      if(s.emailSub)settings.email.sub=s.emailSub; if(s.emailEd)settings.email.ed=s.emailEd;
+      if(s.accent)settings.colors.gold=s.accent; if(s.navy)settings.colors.ink=s.navy; if(s.background)settings.colors.paper=s.background;
+      if(s.card)settings.colors.card=s.card; if(s.europa)settings.colors.eu=s.europa;
+      if(s.logo)settings.img.logo=s.logo; if(s.hero)settings.img.hero=s.hero;
+    }
+    applyExtra(d);
+    renderPubs();renderWhatis();applySettings();
+  }).catch(()=>{});
+
+  // ---- SUBMISSION FORM: save locally + open email ----
+  const subForm=document.getElementById("subForm");
+  if(subForm)subForm.addEventListener("submit",function(e){
+    e.preventDefault();
+    const rec={
+      name:val("sf-name"),email:val("sf-email"),affiliation:val("sf-aff"),
+      track:val("sf-track"),format:val("sf-format"),title:val("sf-title"),
+      abstract:val("sf-abstract"),date:new Date().toLocaleString()
+    };
+    if(!rec.name||!rec.email||!rec.track||!rec.format){alert("Please fill in your name, email, track and format.");return;}
+    subs.push(rec); save("lex_subs",subs);
+    document.getElementById("subMsg").classList.add("show");
+    subForm.querySelector("button[type=submit]").textContent="Submitted ✓";
+    // open the visitor's email app pre-addressed to the desk
+    const body=encodeURIComponent(
+      "Name: "+rec.name+"\nEmail: "+rec.email+"\nAffiliation: "+rec.affiliation+
+      "\nTrack: "+rec.track+"\nFormat: "+rec.format+"\nTitle: "+rec.title+
+      "\n\nAbstract:\n"+rec.abstract+"\n\n(Please attach your manuscript as .docx or PDF.)");
+    const subject=encodeURIComponent("Submission: "+(rec.title||rec.format)+" — "+rec.name);
+    setTimeout(function(){ window.location.href="mailto:"+SUBMIT_EMAIL+"?subject="+subject+"&body="+body; },400);
+  });
+  function val(id){const el=document.getElementById(id);return el?el.value.trim():"";}
+
+  // ---- NEWSLETTER: save locally ----
+  (function(){
+    const send=document.getElementById("nlSend"),email=document.getElementById("nlEmail"),msg=document.getElementById("nlMsg");
+    function subscribe(){
+      const v=(email.value||"").trim();
+      if(!v||!v.includes("@")){email.focus();email.style.borderColor="#fff";return;}
+      if(news.indexOf(v)===-1){news.push(v);save("lex_news",news);}
+      msg.classList.add("show");send.textContent="Subscribed ✓";email.value="";
+    }
+    if(send)send.addEventListener("click",subscribe);
+    if(email)email.addEventListener("keydown",e=>{if(e.key==="Enter")subscribe();});
+  })();
+
+  // ============================================================
+  //  EDITOR PANEL
+  // ============================================================
+  const overlay=document.getElementById("adminOverlay");
+  let unlocked=false;
+  function openAdmin(){
+    if(!unlocked){
+      const p=prompt("Editor passcode:");
+      if(p===null)return;
+      if(p!==EDITOR_PASS){alert("Incorrect passcode.");return;}
+      unlocked=true;
+    }
+    overlay.classList.add("open"); renderAdmin();
+  }
+  function closeAdmin(){overlay.classList.remove("open");}
+  const editorLink=document.getElementById("editorLink");
+  if(editorLink)editorLink.addEventListener("click",e=>{e.preventDefault();openAdmin();});
+  // also openable via #editor in the URL
+  if(location.hash==="#editor")openAdmin();
+  document.getElementById("adminClose").addEventListener("click",closeAdmin);
+  overlay.addEventListener("click",e=>{if(e.target===overlay)closeAdmin();});
+
+  // tabs
+  document.querySelectorAll(".atab").forEach(t=>t.addEventListener("click",()=>{
+    document.querySelectorAll(".atab").forEach(x=>x.classList.remove("active"));
+    document.querySelectorAll(".apane").forEach(x=>x.classList.remove("active"));
+    t.classList.add("active");
+    document.querySelector('.apane[data-pane="'+t.dataset.tab+'"]').classList.add("active");
+  }));
+
+  function renderAdmin(){renderAdminPubs();renderAdminWi();renderAdminSubs();renderAdminNews();populateEditorForms();}
+
+  // ---- image reader (downscales to keep storage small) ----
+  function readImg(file,maxW,mime,cb){
+    const img=new Image(),url=URL.createObjectURL(file);
+    img.onload=function(){
+      const scale=Math.min(1,maxW/img.width),w=Math.round(img.width*scale),h=Math.round(img.height*scale);
+      const cv=document.createElement("canvas");cv.width=w;cv.height=h;
+      cv.getContext("2d").drawImage(img,0,0,w,h);URL.revokeObjectURL(url);
+      try{cb(cv.toDataURL(mime, mime==="image/jpeg"?0.82:undefined));}
+      catch(e){alert("Could not process that image.");}
+    };
+    img.onerror=function(){alert("That file isn't a readable image.");};
+    img.src=url;
+  }
+  function S(k){settings[k]=settings[k]||{};return settings[k];}
+  function saveSettings(){save("lex_settings",settings);applySettings();}
+
+  const DEFAULT_COLORS={gold:"#8c2f39",ink:"#16243d",paper:"#eef1f5",card:"#ffffff",eu:"#2f63ad"};
+  function populateEditorForms(){
+    const c=settings.colors||{},t=settings.text||{},em=settings.email||{},im=settings.img||{};
+    byId("c-gold").value=c.gold||DEFAULT_COLORS.gold;byId("c-ink").value=c.ink||DEFAULT_COLORS.ink;
+    byId("c-paper").value=c.paper||DEFAULT_COLORS.paper;byId("c-card").value=c.card||DEFAULT_COLORS.card;
+    byId("c-eu").value=c.eu||DEFAULT_COLORS.eu;
+    byId("b-name").value=t.name!=null?t.name:"LexEuropa Review";
+    byId("b-tag").value=t.tag!=null?t.tag:"Law · Policy · Future";
+    byId("h-eyebrow").value=t.heroEyebrow!=null?t.heroEyebrow:byId("heroEyebrow").textContent;
+    byId("h-title").value=t.heroTitle!=null?t.heroTitle:byId("heroTitle").textContent;
+    byId("h-dek").value=t.heroDek!=null?t.heroDek:byId("heroDek").textContent;
+    byId("ct-sub").value=em.sub||"submissions@lexeuropareview.eu";
+    byId("ct-ed").value=em.ed||"editorial@lexeuropareview.eu";
+    byId("b-logoprev").innerHTML=imgThumb(im.logo);
+    byId("h-imgprev").innerHTML=imgThumb(im.hero);
+  }
+  (function bindEditorControls(){
+    function bindColor(id,key){byId(id).addEventListener("input",function(){S("colors")[key]=this.value;saveSettings();});}
+    bindColor("c-gold","gold");bindColor("c-ink","ink");bindColor("c-paper","paper");bindColor("c-card","card");bindColor("c-eu","eu");
+    byId("c-reset").addEventListener("click",function(){settings.colors={};saveSettings();populateEditorForms();});
+    function bindText(id,key){byId(id).addEventListener("input",function(){S("text")[key]=this.value;saveSettings();});}
+    bindText("b-name","name");bindText("b-tag","tag");bindText("h-eyebrow","heroEyebrow");bindText("h-title","heroTitle");bindText("h-dek","heroDek");
+    byId("ct-save").addEventListener("click",function(){S("email").sub=byId("ct-sub").value.trim();S("email").ed=byId("ct-ed").value.trim();saveSettings();alert("Contact details saved.");});
+    byId("b-logofile").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;readImg(f,240,"image/png",function(d){S("img").logo=d;saveSettings();byId("b-logoprev").innerHTML=imgThumb(d);});});
+    byId("b-logoclear").addEventListener("click",function(){if(settings.img)delete settings.img.logo;saveSettings();byId("b-logoprev").innerHTML="";});
+    byId("h-imgfile").addEventListener("change",function(e){const f=e.target.files[0];if(!f)return;readImg(f,1400,"image/jpeg",function(d){S("img").hero=d;saveSettings();byId("h-imgprev").innerHTML=imgThumb(d);});});
+    byId("h-imgclear").addEventListener("click",function(){if(settings.img)delete settings.img.hero;saveSettings();byId("h-imgprev").innerHTML="";});
+  })();
+
+
+  // --- publications management ---
+  const apList=document.getElementById("adminPubList");
+  function renderAdminPubs(){
+    document.getElementById("pubCount").textContent=pubs.length;
+    apList.innerHTML=pubs.map(p=>
+      '<div class="arec"><div class="at">'+esc(p.title)+'</div>'
+      +'<div class="am">'+esc(CAT_LABEL[p.cat]||p.cat)+' · '+esc(p.type)+' · '+esc(p.author)+' · '+esc(p.date)+'</div>'
+      +'<div class="aacts"><button data-edit="'+p.id+'">Edit</button><button class="del" data-del="'+p.id+'">Delete</button></div></div>'
+    ).join("") || '<p class="amini">No publications yet.</p>';
+    apList.querySelectorAll("[data-edit]").forEach(b=>b.addEventListener("click",()=>editPub(+b.dataset.edit)));
+    apList.querySelectorAll("[data-del]").forEach(b=>b.addEventListener("click",()=>{
+      if(confirm("Delete this publication?")){pubs=pubs.filter(x=>x.id!=b.dataset.del);save("lex_pubs",pubs);renderPubs();renderAdminPubs();}
+    }));
+  }
+  function imgThumb(src){return src?'<img src="'+src+'" style="max-width:160px;border-radius:4px;border:1px solid var(--line)">':'';}
+  function clearForm(){["ap-title","ap-author","ap-words","ap-date","ap-link","ap-excerpt","ap-id","ap-img"].forEach(id=>document.getElementById(id).value="");
+    document.getElementById("ap-cat").value="digital";document.getElementById("ap-type").value="Article";
+    document.getElementById("ap-imgfile").value="";document.getElementById("ap-imgprev").innerHTML="";
+    document.getElementById("pubFormTitle").textContent="Add a publication";document.getElementById("ap-cancel").style.display="none";}
+  function editPub(id){const p=pubs.find(x=>x.id===id);if(!p)return;
+    document.getElementById("ap-title").value=p.title;document.getElementById("ap-cat").value=p.cat;
+    document.getElementById("ap-type").value=p.type;document.getElementById("ap-author").value=p.author;
+    document.getElementById("ap-words").value=p.words;document.getElementById("ap-date").value=p.date;
+    document.getElementById("ap-link").value=p.link||"";document.getElementById("ap-excerpt").value=p.excerpt;
+    document.getElementById("ap-img").value=p.img||"";document.getElementById("ap-imgprev").innerHTML=imgThumb(p.img);
+    document.getElementById("ap-id").value=p.id;document.getElementById("pubFormTitle").textContent="Edit publication";
+    document.getElementById("ap-cancel").style.display="inline-flex";
+    document.querySelector('.admin-body').scrollTop=0;
+  }
+  document.getElementById("ap-cancel").addEventListener("click",clearForm);
+  document.getElementById("ap-save").addEventListener("click",()=>{
+    const title=document.getElementById("ap-title").value.trim();
+    if(!title){alert("Please enter a title.");return;}
+    const data={cat:document.getElementById("ap-cat").value,type:document.getElementById("ap-type").value,
+      title:title,author:document.getElementById("ap-author").value.trim()||"LexEuropa Review",
+      words:document.getElementById("ap-words").value.trim(),date:document.getElementById("ap-date").value.trim(),
+      link:document.getElementById("ap-link").value.trim(),excerpt:document.getElementById("ap-excerpt").value.trim(),
+      img:document.getElementById("ap-img").value};
+    const editId=document.getElementById("ap-id").value;
+    if(editId){const p=pubs.find(x=>x.id==editId);Object.assign(p,data);}
+    else{data.id=Date.now();pubs.unshift(data);}
+    save("lex_pubs",pubs);renderPubs();renderAdminPubs();clearForm();
+  });
+  document.getElementById("ap-imgfile").addEventListener("change",function(e){
+    const f=e.target.files[0];if(!f)return;readImg(f,1000,"image/jpeg",function(d){
+      document.getElementById("ap-img").value=d;document.getElementById("ap-imgprev").innerHTML=imgThumb(d);});
+  });
+
+  // --- What Is? explainers management ---
+  const wiList=byId("adminWiList");
+  function renderAdminWi(){
+    byId("wiCount").textContent=whatis.length;
+    wiList.innerHTML=whatis.map(w=>
+      '<div class="arec"><div class="at">'+esc(w.term)+'</div>'
+      +'<div class="am">'+esc(w.kicker)+(w.since?' · '+esc(w.since):'')+'</div>'
+      +'<div class="aacts"><button data-wedit="'+w.id+'">Edit</button><button class="del" data-wdel="'+w.id+'">Delete</button></div></div>'
+    ).join("") || '<p class="amini">No explainers yet.</p>';
+    wiList.querySelectorAll("[data-wedit]").forEach(b=>b.addEventListener("click",()=>editWi(+b.dataset.wedit)));
+    wiList.querySelectorAll("[data-wdel]").forEach(b=>b.addEventListener("click",()=>{
+      if(confirm("Delete this explainer?")){whatis=whatis.filter(x=>x.id!=b.dataset.wdel);save("lex_whatis",whatis);renderWhatis();renderAdminWi();}
+    }));
+  }
+  function clearWiForm(){["wi-kicker","wi-since","wi-term","wi-body","wi-id"].forEach(id=>byId(id).value="");
+    byId("wiFormTitle").textContent='Add a "What Is?" explainer';byId("wi-cancel").style.display="none";}
+  function editWi(id){const w=whatis.find(x=>x.id===id);if(!w)return;
+    byId("wi-kicker").value=w.kicker;byId("wi-since").value=w.since||"";byId("wi-term").value=w.term;byId("wi-body").value=w.body;
+    byId("wi-id").value=w.id;byId("wiFormTitle").textContent="Edit explainer";byId("wi-cancel").style.display="inline-flex";
+    document.querySelector(".admin-body").scrollTop=0;}
+  byId("wi-cancel").addEventListener("click",clearWiForm);
+  byId("wi-save").addEventListener("click",()=>{
+    const term=byId("wi-term").value.trim();if(!term){alert("Please enter a term/title.");return;}
+    const data={kicker:byId("wi-kicker").value.trim()||"Explainer",term:term,body:byId("wi-body").value.trim(),since:byId("wi-since").value.trim()};
+    const editId=byId("wi-id").value;
+    if(editId){const w=whatis.find(x=>x.id==editId);Object.assign(w,data);}
+    else{data.id=Date.now();whatis.push(data);}
+    save("lex_whatis",whatis);renderWhatis();renderAdminWi();clearWiForm();
+  });
+
+  // --- publish a submission into the right section ---
+  function publishSubmission(i,type,cat){
+    const s=subs[i];if(!s)return;
+    const today=new Date().toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+    const CATL={digital:"Digital Law",migration:"Migration",environment:"Environment",governance:"Governance"};
+    if(type==="What Is? Explainer"){
+      whatis.push({id:Date.now(),kicker:CATL[cat]||"Explainer",term:s.title||"(untitled)",body:s.abstract||"",since:""});
+      save("lex_whatis",whatis);renderWhatis();renderAdminWi();
+    }else{
+      pubs.unshift({id:Date.now(),cat:cat,type:type,title:s.title||"(untitled)",author:s.name||"Contributor",words:"",date:today,link:"",excerpt:s.abstract||"",img:""});
+      save("lex_pubs",pubs);renderPubs();renderAdminPubs();
+    }
+    s.published=true;save("lex_subs",subs);renderAdminSubs();
+    alert("Published to "+(type==="What Is? Explainer"?'the "What Is?" section.':"Publications as "+type+"."));
+  }
+
+  // --- submissions / newsletter lists ---
+  function renderAdminSubs(){
+    document.getElementById("subCount").textContent=subs.length;
+    const el=document.getElementById("adminSubList");
+    const TYPES=["Article","Report","Book Review","Policy Paper","Opinion","What Is? Explainer"];
+    const CATS=[["digital","Digital Law"],["migration","Migration"],["environment","Environment"],["governance","Governance"]];
+    function guessType(fmt){fmt=(fmt||"").toLowerCase();
+      if(fmt.indexOf("opinion")>-1)return "Opinion";if(fmt.indexOf("report")>-1)return "Report";
+      if(fmt.indexOf("book")>-1)return "Book Review";if(fmt.indexOf("policy")>-1)return "Policy Paper";return "Article";}
+    el.innerHTML=subs.slice().reverse().map((s,i)=>{
+      const idx=subs.length-1-i;
+      const typeOpts=TYPES.map(t=>'<option'+(t===guessType(s.format)?' selected':'')+'>'+t+'</option>').join("");
+      const catOpts=CATS.map(c=>'<option value="'+c[0]+'">'+c[1]+'</option>').join("");
+      return '<div class="arec"><div class="at">'+esc(s.title||"(untitled)")+(s.published?' <span style="color:var(--gold-deep);font-size:11px">✓ published</span>':'')+'</div>'
+        +'<div class="am">'+esc(s.name)+' &lt;'+esc(s.email)+'&gt;<br>'+esc(s.track)+' · '+esc(s.format)+' · '+esc(s.date)
+        +(s.affiliation?'<br>'+esc(s.affiliation):'')+(s.abstract?'<br><em>'+esc(s.abstract)+'</em>':'')+'</div>'
+        +'<div class="aacts" style="flex-wrap:wrap;align-items:center;gap:6px">'
+          +'<span style="font-size:11px;color:var(--ink-faint)">Publish as</span>'
+          +'<select class="pubsel" data-i="'+idx+'" style="padding:5px 7px;font-size:12px;border:1px solid var(--line);border-radius:4px;background:var(--card);color:var(--text)">'+typeOpts+'</select>'
+          +'<select class="catsel" data-i="'+idx+'" style="padding:5px 7px;font-size:12px;border:1px solid var(--line);border-radius:4px;background:var(--card);color:var(--text)">'+catOpts+'</select>'
+          +'<button data-pub="'+idx+'">Publish →</button>'
+          +'<button class="del" data-dsub="'+idx+'">Delete</button>'
+        +'</div></div>';
+    }).join("") || '<p class="amini">No submissions captured in this browser yet.</p>';
+    el.querySelectorAll("[data-dsub]").forEach(b=>b.addEventListener("click",()=>{
+      subs.splice(+b.dataset.dsub,1);save("lex_subs",subs);renderAdminSubs();
+    }));
+    el.querySelectorAll("[data-pub]").forEach(b=>b.addEventListener("click",()=>{
+      const i=+b.dataset.pub;
+      const type=el.querySelector('.pubsel[data-i="'+i+'"]').value;
+      const cat=el.querySelector('.catsel[data-i="'+i+'"]').value;
+      publishSubmission(i,type,cat);
+    }));
+  }
+  function renderAdminNews(){
+    document.getElementById("newsCount").textContent=news.length;
+    const el=document.getElementById("adminNewsList");
+    el.innerHTML=news.slice().reverse().map((m,i)=>{const idx=news.length-1-i;
+      return '<div class="arec"><div class="am">'+esc(m)+' <button class="del" data-dnews="'+idx+'" style="float:right">Remove</button></div></div>';
+    }).join("") || '<p class="amini">No sign-ups captured in this browser yet.</p>';
+    el.querySelectorAll("[data-dnews]").forEach(b=>b.addEventListener("click",()=>{
+      news.splice(+b.dataset.dnews,1);save("lex_news",news);renderAdminNews();
+    }));
+  }
+  function download(name,text){const a=document.createElement("a");
+    a.href=URL.createObjectURL(new Blob([text],{type:"text/plain"}));a.download=name;a.click();}
+  document.getElementById("subsExport").addEventListener("click",()=>download("submissions.json",JSON.stringify(subs,null,2)));
+  document.getElementById("newsExport").addEventListener("click",()=>download("newsletter-emails.json",JSON.stringify(news,null,2)));
+
+  // --- backup tab ---
+  document.getElementById("exportAll").addEventListener("click",()=>download("lexeuropa-backup.json",JSON.stringify({pubs,whatis,subs,news,settings},null,2)));
+  document.getElementById("importFile").addEventListener("change",function(e){
+    const file=e.target.files[0];if(!file)return;const r=new FileReader();
+    r.onload=()=>{try{const d=JSON.parse(r.result);
+      if(d.pubs)pubs=d.pubs;if(d.whatis)whatis=d.whatis;if(d.subs)subs=d.subs;if(d.news)news=d.news;if(d.settings)settings=d.settings;
+      save("lex_pubs",pubs);save("lex_whatis",whatis);save("lex_subs",subs);save("lex_news",news);save("lex_settings",settings);
+      renderPubs();renderWhatis();applySettings();renderAdmin();alert("Backup imported.");}catch(err){alert("That file couldn't be read.");}};
+    r.readAsText(file);
+  });
+  document.getElementById("copyPubs").addEventListener("click",()=>{
+    const box=document.getElementById("exportBox");
+    box.value="PUBLICATIONS = "+JSON.stringify(pubs,null,2);
+    box.select();try{document.execCommand("copy");}catch(e){}
+    alert("Copied. Paste this to your developer (or to Claude) to bake these publications in for all visitors.");
+  });
+  document.getElementById("resetPubs").addEventListener("click",()=>{
+    if(confirm("Reset publications to the original samples?")){pubs=DEFAULT_PUBS.slice();save("lex_pubs",pubs);renderPubs();renderAdminPubs();}
+  });
+})();
+</script>
+</body>
+</html>
